@@ -5,7 +5,7 @@ export default function Index() {
   return (
     <>
       <View className="flex-1 justify-center items-center">
-        <Text className="text-3xl text-light-100 font-semibold">Welcome in PiFish!!!</Text>
+        <Text className="text-3xl text-primary font-semibold">Welcome in PiFish!!!</Text>
       </View >
     </>
   );

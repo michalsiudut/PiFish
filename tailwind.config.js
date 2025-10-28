@@ -9,7 +9,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#3A4694'
+        primary: '#111816',
+        secondary: '#13ECB6',
+        placeholders: '#61897F',
+        light: {
+          100: '#FFFFFF',
+          200: '#F6F8F8',
+          300: '#DBDBDB',
+        },
+        dark: {
+          100: '#000000',
+          200: '#1F2937',
+          300: '#111827',
+        }
+
       }
     },
   },

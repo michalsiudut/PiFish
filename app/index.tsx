@@ -1,9 +1,12 @@
 import { Text, View } from "react-native";
 
+
 export default function Index() {
   return (
-    <View className="flex-1 justify-center items-center">
-      <Text className="text-2xl text-primary">Welcome in PiFish!!!</Text>
-    </View>
+    <>
+      <View className="flex-1 justify-center items-center">
+        <Text className="text-3xl text-light-100 font-semibold">Welcome in PiFish!!!</Text>
+      </View >
+    </>
   );
 }

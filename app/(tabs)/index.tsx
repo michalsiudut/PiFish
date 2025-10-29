@@ -2,10 +2,12 @@ import { Text, View } from "react-native";
 
 
 export default function Index() {
+
+  const user = "Michał";
   return (
     <>
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-3xl text-primary font-semibold">Welcome in PiFish!!!</Text>
+      <View className="mt-4 ml-4">
+        <Text className="text-4xl text-primary font-bold">Hello, {user}</Text>
       </View >
     </>
   );

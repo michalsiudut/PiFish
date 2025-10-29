@@ -6,7 +6,7 @@ export default function Index() {
   const user = "Michał";
   return (
     <>
-      <View className="mt-4 ml-4">
+      <View className="mt-20 ml-4">
         <Text className="text-4xl text-primary font-bold">Hello, {user}</Text>
       </View >
     </>

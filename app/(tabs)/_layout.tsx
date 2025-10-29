@@ -6,26 +6,17 @@ import { icons as images } from '../../constants/icons';
 
 type TabIconProps = {
     icon: ImageSourcePropType;
-    name?: string;
     focused?: boolean;
 };
 
-const TabIcon: React.FC<TabIconProps> = ({ icon, name, focused }) => {
-    const tintColor = focused ? '#14b8a6' : '#6B7280'; // Przykładowy kolor aktywny
-    const iconSize = focused ? 'size-6' : 'size-6';
+const TabIcon: React.FC<TabIconProps> = ({ icon, focused }) => {
+    const tintColor = focused ? '#14b8a6' : '#6B7280';
     return (
-        <View style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100%',
-            width: '100%',
-        }}>
+        <View>
             <Image
                 source={icon}
-                className={iconSize}
                 tintColor={tintColor}
             />
-
         </View>
     );
 };
@@ -40,6 +31,8 @@ const _layout = () => {
                 tabBarInactiveTintColor: "#6B7280",
                 tabBarStyle: {
                     borderRadius: 50,
+                    borderTopWidth: 0,
+                    borderColor: "#14b8a6",
                     marginHorizontal: 20,
                     marginBottom: 36,
                     height: 58,
@@ -64,7 +57,6 @@ const _layout = () => {
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <TabIcon icon={images.Home}
-                        name='Home'
                         focused={focused} />
                 ),
             }} />
@@ -72,8 +64,8 @@ const _layout = () => {
                 title: "Calendar",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
-                    <TabIcon icon={images.Calendar}
-                        name='Calendar'
+                    <TabIcon
+                        icon={images.Calendar}
                         focused={focused} />
                 )
             }} />
@@ -81,8 +73,8 @@ const _layout = () => {
                 title: "Profile",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
-                    <TabIcon icon={images.Profile}
-                        name='Profile'
+                    <TabIcon
+                        icon={images.Profile}
                         focused={focused} />
                 )
             }} />
@@ -90,8 +82,8 @@ const _layout = () => {
                 title: "Settings",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
-                    <TabIcon icon={images.Settings}
-                        name='Settings'
+                    <TabIcon
+                        icon={images.Settings}
                         focused={focused} />
                 )
             }} />

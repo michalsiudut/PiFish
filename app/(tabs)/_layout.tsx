@@ -14,6 +14,12 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, focused }) => {
     return (
         <View>
             <Image
+                style={{
+                    width: 24,
+                    height: 24,
+                    marginTop: 3,
+                    paddingRight: 1,
+                }}
                 source={icon}
                 tintColor={tintColor}
             />

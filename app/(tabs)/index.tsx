@@ -1,4 +1,5 @@
-import { Image, Button, Text, View } from "react-native";
+import { useFonts } from 'expo-font';
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { CustomButton } from '../buttons/CustomButton';
 
@@ -6,11 +7,20 @@ import { CustomButton } from '../buttons/CustomButton';
 
 export default function Index() {
 
-  const user = "Michał";
+  const user = "Jakub";
+  const [fontsLoaded] = useFonts({
+    'Lexend-Regular': require('../../assets/fonts/Lexend-Regular.ttf'),
+    'Lexend-Bold': require('../../assets/fonts/Lexend-Bold.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    return <ActivityIndicator size="large" />;
+  }
+
   return (
     <>
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
-        <Text className="text-4xl text-primary font-bold">Hello, {user}!</Text>
+        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Hello, {user}!</Text>
         <View className="justify-center flex-row items-center">
           <Image source={images.Bell} style={{
             width: 30,

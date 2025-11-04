@@ -1,6 +1,6 @@
+import { useFonts } from 'expo-font';
 import React, { useState } from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 interface CustomButtonProps {
     title: string;
@@ -14,6 +14,16 @@ export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }
 
     const handlePress = () => {
         setIsClicked(!isClicked);
+    }
+
+    //fonts 
+    const [fontsLoaded] = useFonts({
+        'Lexend-Regular': require('../../assets/fonts/Lexend-Regular.ttf'),
+        'Lexend-Bold': require('../../assets/fonts/Lexend-Bold.ttf'),
+    });
+
+    if (!fontsLoaded) {
+        return <ActivityIndicator size="large" />;
     }
 
     return (
@@ -48,7 +58,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: 'white',
-        fontWeight: 'bold',
+        fontFamily: 'Lexend-Bold',
     },
     textClicked: {
         color: '#6B7280',

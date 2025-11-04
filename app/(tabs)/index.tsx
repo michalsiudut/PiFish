@@ -1,5 +1,7 @@
-import { Image, Text, View } from "react-native";
+import { Image, Button, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
+import { CustomButton } from '../buttons/CustomButton';
+
 
 
 export default function Index() {
@@ -22,7 +24,11 @@ export default function Index() {
           }}>
           </Image>
         </View>
-
+      </View >
+      <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">
+        <View className="flex-row ml-3 mr-3 mt-3">
+          <CustomButton title="Podstawowy" secondTitle="Rozszerzony" />
+        </View>
       </View >
     </>
   );

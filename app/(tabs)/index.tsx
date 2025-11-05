@@ -1,9 +1,8 @@
+import { useFonts } from "expo-font";
 import { Image, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { CustomButton } from '../components/buttons/CustomButton';
 import { ProgressBar } from "../components/ProgressBar";
-import { useFontStatus } from '../hooks/useFontStatus';
-
 
 
 export default function Index() {
@@ -12,7 +11,11 @@ export default function Index() {
   const percentage = 45
   const value = 144 * (percentage / 100);
 
-  useFontStatus();
+  const [fontsLoaded] = useFonts({
+    'Lexend-Regular': require('../../assets/fonts/Lexend-Regular.ttf'),
+    'Lexend-Bold': require('../../assets/fonts/Lexend-Bold.ttf'),
+
+  });
 
   return (
     <>
@@ -57,6 +60,12 @@ export default function Index() {
           </View>
           <Image source={images.SigmaIcon} className="mr-4"></Image>
         </View>
+      </View>
+
+      <View>
+        <Text>
+          Działy
+        </Text>
       </View>
     </>
   );

@@ -1,8 +1,12 @@
-import { useFonts } from "expo-font";
-import { Image, Text, View } from "react-native";
+import React from "react";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
+import { mathTopics } from "../../constants/mathTopics";
 import { CustomButton } from '../components/buttons/CustomButton';
+import { TouchableText } from "../components/buttons/TouchableText";
+import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
+import { useFontStatus } from "../hooks/useFontStatus";
 
 
 export default function Index() {
@@ -10,12 +14,15 @@ export default function Index() {
   const user = "Jakub";
   const percentage = 45
   const value = 144 * (percentage / 100);
+  const { fontsLoaded } = useFontStatus();
 
-  const [fontsLoaded] = useFonts({
-    'Lexend-Regular': require('../../assets/fonts/Lexend-Regular.ttf'),
-    'Lexend-Bold': require('../../assets/fonts/Lexend-Bold.ttf'),
+  if (!fontsLoaded) {
+    return <ActivityIndicator size="small" />;
+  }
 
-  });
+  const handleTopicPress = () => {
+    // TODO go for topic
+  };
 
   return (
     <>
@@ -41,13 +48,13 @@ export default function Index() {
         </View>
       </View >
       <View className="ml-4 mb-4">
-        <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-2xl">
+        <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-2xl text-primary">
           Twój kurs
         </Text>
 
         <View className="justify-between flex-row items-center mr-4">
           <View className="ml-6 mt-6 w-36">
-            <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-lg">
+            <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-lg text-primary">
               Matematyka
             </Text>
             <Text style={{ fontFamily: 'Lexend-Regular' }} className="text-sm color-[#6B7280]">
@@ -62,11 +69,22 @@ export default function Index() {
         </View>
       </View>
 
-      <View>
-        <Text>
+      <View className="flex-row items-center justify-between ml-4 mr-4 w-auto">
+        <Text className="text-2xl text-primary" style={{ fontFamily: 'Lexend-Bold' }}>
           Działy
         </Text>
+        <TouchableText text="Zobacz wszystkie" />
       </View>
+      <View >
+        {mathTopics.map((topic) => (
+          <MathTopicItem
+            key={topic.id}
+            title={topic.title}
+            iconName={topic.icon}
+            onPress={handleTopicPress}
+          />
+        ))}
+      </View >
     </>
   );
 }

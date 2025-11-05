@@ -1,6 +1,6 @@
-import { useFonts } from 'expo-font';
+import { useFontStatus } from '@/app/hooks/useFontStatus';
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 interface CustomButtonProps {
     title: string;
@@ -16,11 +16,12 @@ export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }
         setIsClicked(!isClicked);
     }
 
-    const [fontsLoaded] = useFonts({
-        'Lexend-Regular': require('../../../assets/fonts/Lexend-Regular.ttf'),
-        'Lexend-Bold': require('../../../assets/fonts/Lexend-Bold.ttf'),
+    const { fontsLoaded } = useFontStatus();
 
-    });
+    if (!fontsLoaded) {
+        return <ActivityIndicator size="small" />;
+    }
+
 
     return (
         <>

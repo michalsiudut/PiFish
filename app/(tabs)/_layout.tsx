@@ -59,7 +59,7 @@ const _layout = () => {
             }}
         >
             <Tabs.Screen name="index" options={{
-                title: "Home",
+                title: "Dom",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <TabIcon icon={images.Home}
@@ -67,7 +67,7 @@ const _layout = () => {
                 ),
             }} />
             <Tabs.Screen name="Calendar" options={{
-                title: "Calendar",
+                title: "Kalendarz",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <TabIcon
@@ -76,7 +76,7 @@ const _layout = () => {
                 )
             }} />
             <Tabs.Screen name="Profile" options={{
-                title: "Profile",
+                title: "Profil",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <TabIcon
@@ -85,7 +85,7 @@ const _layout = () => {
                 )
             }} />
             <Tabs.Screen name="Settings" options={{
-                title: "Settings",
+                title: "Ustawienia",
                 headerShown: false,
                 tabBarIcon: ({ focused }) => (
                     <TabIcon

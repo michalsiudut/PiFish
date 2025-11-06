@@ -1,5 +1,8 @@
+import { auth } from "@/FirebaseConfig";
+import { getAuth } from "@firebase/auth";
+import { router } from "expo-router";
 import React from "react";
-import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
 import { CustomButton } from '../components/buttons/CustomButton';
@@ -19,6 +22,10 @@ export default function Index() {
   if (!fontsLoaded) {
     return <ActivityIndicator size="small" />;
   }
+
+  getAuth().onAuthStateChanged((user) => {
+    if (!user) router.replace('/(auth)');
+  })
 
   const handleTopicPress = (id: number) => {
     // TODO go for topic from id
@@ -40,6 +47,9 @@ export default function Index() {
             height: 40,
           }}>
           </Image>
+          <TouchableOpacity onPress={() => auth.signOut()}>
+            <Text>Sign out</Text>
+          </TouchableOpacity>
         </View>
       </View >
       <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">

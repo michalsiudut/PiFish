@@ -10,7 +10,7 @@ interface CustomButtonProps {
 
 export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }) => {
 
-    const [isClicked, setIsClicked] = useState(false);
+    const [isClicked, setIsClicked] = useState(true);
 
     const handlePress = (targetValue: boolean) => {
         if (isClicked !== targetValue) {

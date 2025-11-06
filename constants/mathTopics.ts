@@ -18,5 +18,5 @@ export const mathTopics: MathTopic[] = [
     { id: 7, title: 'Planimetria', icon: 'P' },
     { id: 8, title: 'Geometria analityczna', icon: 'GA' },
     { id: 9, title: 'Stereometria', icon: 'S' },
-    { id: 10, title: 'Statystyka i rachunek prawdopodobieństwa', icon: 'SP' },
+    { id: 10, title: 'Statystyka i prawdopodobieństwo', icon: 'SP' },
 ];

@@ -1,5 +1,5 @@
 import React from "react";
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
 import { CustomButton } from '../components/buttons/CustomButton';
@@ -20,8 +20,8 @@ export default function Index() {
     return <ActivityIndicator size="small" />;
   }
 
-  const handleTopicPress = () => {
-    // TODO go for topic
+  const handleTopicPress = (id: number) => {
+    // TODO go for topic from id
   };
 
   return (
@@ -47,44 +47,47 @@ export default function Index() {
           <CustomButton title="Podstawowy" secondTitle="Rozszerzony" />
         </View>
       </View >
-      <View className="ml-4 mb-4">
-        <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-2xl text-primary">
-          Twój kurs
-        </Text>
+      <ScrollView>
+        <View className="ml-4 mb-4">
+          <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-2xl text-primary">
+            Twój kurs
+          </Text>
 
-        <View className="justify-between flex-row items-center mr-4">
-          <View className="ml-6 mt-6 w-36">
-            <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-lg text-primary">
-              Matematyka
-            </Text>
-            <Text style={{ fontFamily: 'Lexend-Regular' }} className="text-sm color-[#6B7280]">
-              Poziom podstawowy
-            </Text>
-            <ProgressBar value={value} />
-            <Text style={{ fontFamily: 'Lexend-Regular' }} className="text-sm color-[#6B7280] mt-2">
-              {percentage}% ukończono
-            </Text>
+          <View className="justify-between flex-row items-center mr-4">
+            <View className="ml-6 mt-6 w-36">
+              <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-lg text-primary">
+                Matematyka
+              </Text>
+              <Text style={{ fontFamily: 'Lexend-Regular' }} className="text-sm color-[#6B7280]">
+                Poziom podstawowy
+              </Text>
+              <ProgressBar value={value} />
+              <Text style={{ fontFamily: 'Lexend-Regular' }} className="text-sm color-[#6B7280] mt-2">
+                {percentage}% ukończono
+              </Text>
+            </View>
+            <Image source={images.SigmaIcon} className="mr-4"></Image>
           </View>
-          <Image source={images.SigmaIcon} className="mr-4"></Image>
         </View>
-      </View>
 
-      <View className="flex-row items-center justify-between ml-4 mr-4 w-auto">
-        <Text className="text-2xl text-primary" style={{ fontFamily: 'Lexend-Bold' }}>
-          Działy
-        </Text>
-        <TouchableText text="Zobacz wszystkie" />
-      </View>
-      <View >
-        {mathTopics.map((topic) => (
-          <MathTopicItem
-            key={topic.id}
-            title={topic.title}
-            iconName={topic.icon}
-            onPress={handleTopicPress}
-          />
-        ))}
-      </View >
+        <View className="flex-row items-center justify-between ml-4 mr-4 w-auto">
+          <Text className="text-2xl text-primary" style={{ fontFamily: 'Lexend-Bold' }}>
+            Działy
+          </Text>
+          <TouchableText text="Zobacz wszystkie" />
+        </View>
+        <View >
+          {mathTopics.map((topic) => (
+            <MathTopicItem
+              key={topic.id}
+              title={topic.title}
+              iconName={topic.icon}
+              onPress={() => handleTopicPress(topic.id)}
+            />
+          ))}
+        </View >
+        <View className="mb-4"></View>
+      </ScrollView >
     </>
   );
 }

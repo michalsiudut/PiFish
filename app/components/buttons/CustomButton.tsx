@@ -12,8 +12,10 @@ export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }
 
     const [isClicked, setIsClicked] = useState(false);
 
-    const handlePress = () => {
-        setIsClicked(!isClicked);
+    const handlePress = (targetValue: boolean) => {
+        if (isClicked !== targetValue) {
+            setIsClicked(targetValue);
+        }
     }
 
     const { fontsLoaded } = useFontStatus();
@@ -25,15 +27,15 @@ export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }
 
     return (
         <>
-            < TouchableOpacity style={[styles.button, isClicked && styles.buttonClicked
-            ]} onPress={handlePress}>
-                <Text style={[styles.text, isClicked && styles.textClicked]}>
+            < TouchableOpacity style={[styles.buttonClicked, isClicked && styles.button
+            ]} onPress={() => handlePress(true)}>
+                <Text style={[styles.textClicked, isClicked && styles.text]}>
                     {title}
                 </Text>
             </TouchableOpacity >
-            < TouchableOpacity style={[styles.button, !isClicked && styles.buttonClicked
-            ]} onPress={handlePress}>
-                <Text style={[styles.text, !isClicked && styles.textClicked]}>
+            < TouchableOpacity style={[styles.buttonClicked, !isClicked && styles.button
+            ]} onPress={() => handlePress(false)}>
+                <Text style={[styles.textClicked, !isClicked && styles.text]}>
                     {secondTitle}
                 </Text>
             </TouchableOpacity >
@@ -52,6 +54,11 @@ const styles = StyleSheet.create({
     },
     buttonClicked: {
         backgroundColor: '#E5E7EB',
+        padding: 10,
+        borderRadius: 5,
+        alignItems: 'center',
+        width: 168.5,
+        marginRight: 5
     },
     text: {
         color: 'white',
@@ -59,5 +66,6 @@ const styles = StyleSheet.create({
     },
     textClicked: {
         color: '#6B7280',
+        fontFamily: 'Lexend-Bold',
     },
 });

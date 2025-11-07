@@ -1,12 +1,13 @@
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { db } from "../../FirebaseConfig";
 import { icons as images } from '../../constants/icons';
 
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
+import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../../FirebaseConfig';
 import { ValueInput } from '../components/ValueInput';
@@ -22,12 +23,22 @@ export default function index() {
     const [name, setName] = useState('iimie');
     const [surname, setSurname] = useState('nazwisko');
     const [city, setCity] = useState('Krakow');
+    const [showContent, setShowContent] = useState(false);
 
     //font 
     const isLoaded = useFontStatus();
-    if (!isLoaded) {
-        return <ActivityIndicator size={'small'} />
+    useEffect(() => {
+        if (isLoaded) {
+            // Dajemy milisekundy na synchornizację natywną
+            setTimeout(() => {
+                setShowContent(true);
+            }, 50); // 50ms to zazwyczaj wystarczająco
+        }
+    }, [isLoaded]);
+    if (!showContent) {
+        return <ActivityIndicator size={'large'} />;
     }
+
 
     const signIn = async () => {
         try {
@@ -63,40 +74,42 @@ export default function index() {
     }
 
     return (
-        <SafeAreaView>
-            <View className='justify-center items-center mt-24 mb-6'>
-                <Image source={images.WelcomeIcon} style={{ width: 53, height: 53, tintColor: "#14b8a6" }}>
-                </Image>
-            </View>
-            <View className='justify-center items-center mb-4 w-auto'>
-                <Text className='text-4xl' style={styles.text}>Witaj z powrotem</Text>
-            </View>
-            <View className='justify-center items-center mb-8'>
-                <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj sie na swoje konto</Text>
-            </View>
-            <ValueInput
-                title="Email"
-                placeholder="Wpisz swój email"
-                value={email}
-                onChangeText={setEmail}
-                color="#61897F"
-            />
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <SafeAreaView>
+                <View className='justify-center items-center mt-24 mb-6'>
+                    <Image source={images.WelcomeIcon} style={{ width: 53, height: 53, tintColor: "#14b8a6" }}>
+                    </Image>
+                </View>
+                <View className='justify-center items-center mb-4 w-auto'>
+                    <Text className='text-4xl' style={styles.text}>Witaj z powrotem</Text>
+                </View>
+                <View className='justify-center items-center mb-8'>
+                    <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj sie na swoje konto</Text>
+                </View>
+                <ValueInput
+                    title="Email"
+                    placeholder="Wpisz swój email"
+                    value={email}
+                    onChangeText={setEmail}
+                    color="#61897F"
+                />
 
-            <ValueInput
-                title="Hasło"
-                placeholder="Wpisz swoje hasło"
-                value={password}
-                onChangeText={setPassword}
-                color="#61897F"
-                secureTextEntry={true}
-            />
-            <View className='justify-center items-end mr-4'>
-                <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13}></TouchableText>
-            </View>
-            <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center'>
-                <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
-            </View>
-        </SafeAreaView >
+                <ValueInput
+                    title="Hasło"
+                    placeholder="Wpisz swoje hasło"
+                    value={password}
+                    onChangeText={setPassword}
+                    color="#61897F"
+                    secureTextEntry={true}
+                />
+                <View className='justify-center items-end mr-4'>
+                    <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13}></TouchableText>
+                </View>
+                <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center'>
+                    <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
+                </View>
+            </SafeAreaView >
+        </TouchableWithoutFeedback>
     )
 }
 

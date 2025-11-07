@@ -1,6 +1,6 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native';
 import { db } from "../../FirebaseConfig";
 import { icons as images } from '../../constants/icons';
 
@@ -10,6 +10,8 @@ import { doc, setDoc } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../../FirebaseConfig';
 import { ValueInput } from '../components/ValueInput';
+import { ButtonFunction } from "../components/buttons/ButtonFunction";
+import { TouchableText } from '../components/buttons/TouchableText';
 import { useFontStatus } from '../hooks/useFontStatus';
 
 export default function index() {
@@ -63,14 +65,14 @@ export default function index() {
     return (
         <SafeAreaView>
             <View className='justify-center items-center mt-24 mb-6'>
-                <Image source={images.WelcomeIcon} style={{ width: 53, height: 53 }}>
+                <Image source={images.WelcomeIcon} style={{ width: 53, height: 53, tintColor: "#14b8a6" }}>
                 </Image>
             </View>
-            <View className='justify-center items-center mb-4'>
-                <Text className='text-4xl' style={styles.text}>Witaj z powrotem!</Text>
+            <View className='justify-center items-center mb-4 w-auto'>
+                <Text className='text-4xl' style={styles.text}>Witaj z powrotem</Text>
             </View>
             <View className='justify-center items-center mb-8'>
-                <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj się na swoje konto</Text>
+                <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj sie na swoje konto</Text>
             </View>
             <ValueInput
                 title="Email"
@@ -88,11 +90,12 @@ export default function index() {
                 color="#61897F"
                 secureTextEntry={true}
             />
-
-            <TouchableOpacity onPress={signIn}>
-                <Text className='ml-5'>Zaloguj się</Text>
-            </TouchableOpacity>
-
+            <View className='justify-center items-end mr-4'>
+                <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13}></TouchableText>
+            </View>
+            <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center'>
+                <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
+            </View>
         </SafeAreaView >
     )
 }

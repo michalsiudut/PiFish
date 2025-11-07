@@ -16,6 +16,7 @@ import Sign from "../assets/icons/Sign.png"
 import SP from "../assets/icons/SP.png"
 import T from "../assets/icons/T.png"
 import WA from "../assets/icons/WA.png"
+import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
 
 
 
@@ -40,4 +41,5 @@ export const icons = {
     SP,
     T,
     WA,
+    WelcomeIcon,
 }

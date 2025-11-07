@@ -1,12 +1,16 @@
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { db } from "../../FirebaseConfig";
+import { icons as images } from '../../constants/icons';
+
 
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../../FirebaseConfig';
+import { ValueInput } from '../components/ValueInput';
+import { useFontStatus } from '../hooks/useFontStatus';
 
 export default function index() {
 
@@ -16,6 +20,12 @@ export default function index() {
     const [name, setName] = useState('iimie');
     const [surname, setSurname] = useState('nazwisko');
     const [city, setCity] = useState('Krakow');
+
+    //font 
+    const isLoaded = useFontStatus();
+    if (!isLoaded) {
+        return <ActivityIndicator size={'small'} />
+    }
 
     const signIn = async () => {
         try {
@@ -52,31 +62,48 @@ export default function index() {
 
     return (
         <SafeAreaView>
-            <Text>login</Text>
-            <TextInput
-                placeholder='email:'
-                className='bg-slate-500'
+            <View className='justify-center items-center mt-24 mb-6'>
+                <Image source={images.WelcomeIcon} style={{ width: 53, height: 53 }}>
+                </Image>
+            </View>
+            <View className='justify-center items-center mb-4'>
+                <Text className='text-4xl' style={styles.text}>Witaj z powrotem!</Text>
+            </View>
+            <View className='justify-center items-center mb-8'>
+                <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj się na swoje konto</Text>
+            </View>
+            <ValueInput
+                title="Email"
+                placeholder="Wpisz swój email"
                 value={email}
-                onChangeText={setEmail}>
-            </TextInput>
-            <TextInput
-                placeholder='password'
-                className='bg-slate-400'
+                onChangeText={setEmail}
+                color="#61897F"
+            />
+
+            <ValueInput
+                title="Hasło"
+                placeholder="Wpisz swoje hasło"
                 value={password}
                 onChangeText={setPassword}
-                secureTextEntry={true}>
-            </TextInput>
-
+                color="#61897F"
+                secureTextEntry={true}
+            />
 
             <TouchableOpacity onPress={signIn}>
-                <Text className='ml-5'>Login</Text>
+                <Text className='ml-5'>Zaloguj się</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={signUp}>
-                <Text className='ml-20'>Register</Text>
-            </TouchableOpacity>
-
-            <View className='mt-20'></View>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
+
+const styles = StyleSheet.create({
+    text: {
+        fontFamily: 'Lexend-Bold',
+        color: 'primary',
+    },
+    textShadow: {
+        fontFamily: 'Lexend-Bold',
+        color: '#61897F',
+    }
+})

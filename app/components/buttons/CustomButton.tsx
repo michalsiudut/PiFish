@@ -1,6 +1,6 @@
-import { useFontStatus } from '@/app/hooks/useFontStatus';
 import React, { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { useFontStatus } from '../../hooks/useFontStatus';
 
 interface CustomButtonProps {
     title: string;

@@ -1,10 +1,10 @@
-import { auth } from "@/FirebaseConfig";
 import { getAuth } from "@firebase/auth";
 import { router } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
+import { auth } from "../../FirebaseConfig";
 import { CustomButton } from '../components/buttons/CustomButton';
 import { TouchableText } from "../components/buttons/TouchableText";
 import MathTopicItem from '../components/MathTopicItem';

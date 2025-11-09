@@ -5,7 +5,7 @@ import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } fr
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
 import { auth } from "../../FirebaseConfig";
-import { CustomButton } from '../components/buttons/CustomButton';
+import { SwitchButtons } from "../components/buttons/SwitchButtons";
 import { TouchableText } from "../components/buttons/TouchableText";
 import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
@@ -54,7 +54,7 @@ export default function Index() {
       </View >
       <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">
         <View className="flex-row ml-3 mr-3 mt-3">
-          <CustomButton title="Podstawowy" secondTitle="Rozszerzony" />
+          <SwitchButtons title="Podstawowy" secondTitle="Rozszerzony" />
         </View>
       </View >
       <ScrollView>
@@ -84,7 +84,7 @@ export default function Index() {
           <Text className="text-2xl text-primary" style={{ fontFamily: 'Lexend-Bold' }}>
             Działy
           </Text>
-          <TouchableText text="Zobacz wszystkie" />
+          <TouchableText text="Zobacz wszystkie" color="#14b8a6" fontSize={14} />
         </View>
         <View >
           {mathTopics.map((topic) => (

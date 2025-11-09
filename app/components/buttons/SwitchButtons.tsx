@@ -8,7 +8,7 @@ interface CustomButtonProps {
 
 }
 
-export const CustomButton: React.FC<CustomButtonProps> = ({ title, secondTitle }) => {
+export const SwitchButtons: React.FC<CustomButtonProps> = ({ title, secondTitle }) => {
 
     const [isClicked, setIsClicked] = useState(true);
 

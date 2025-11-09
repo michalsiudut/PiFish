@@ -5,10 +5,11 @@ import { useFontStatus } from '../../hooks/useFontStatus';
 interface Props {
     text: string;
     color: string;
-    fontSize: number
+    fontSize: number;
+    onChange: () => void;
 }
 
-export const TouchableText: React.FC<Props> = ({ text, color, fontSize }) => {
+export const TouchableText: React.FC<Props> = ({ text, color, fontSize, onChange }) => {
 
 
     const { fontsLoaded } = useFontStatus();
@@ -20,8 +21,8 @@ export const TouchableText: React.FC<Props> = ({ text, color, fontSize }) => {
 
     return (
         <>
-            < TouchableOpacity >
-                <Text style={{ fontFamily: 'Lexend-Bold', fontSize: fontSize, color: color }} className='mt-1'>
+            < TouchableOpacity onPress={onChange}>
+                <Text style={{ fontFamily: 'Lexend-Bold', fontSize: fontSize, color: color }}>
                     {text}
                 </Text>
             </TouchableOpacity >

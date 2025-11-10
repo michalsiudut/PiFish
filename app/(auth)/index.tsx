@@ -18,9 +18,6 @@ export default function index() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('iimie');
-    const [surname, setSurname] = useState('nazwisko');
-    const [city, setCity] = useState('Krakow');
     const [showContent, setShowContent] = useState(false);
 
     //font 
@@ -54,7 +51,7 @@ export default function index() {
     }
 
     const forgotPassword = () => {
-        console.log("Smiga");
+        console.log("forgot password");
     }
 
     return (

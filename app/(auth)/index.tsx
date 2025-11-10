@@ -76,6 +76,7 @@ export default function index() {
                     value={email}
                     onChangeText={setEmail}
                     color="#61897F"
+                    iconName='Mail'
                 />
 
                 <ValueInput
@@ -85,6 +86,7 @@ export default function index() {
                     onChangeText={setPassword}
                     color="#61897F"
                     secureTextEntry={true}
+                    iconName='Key'
                 />
                 <View className='justify-center items-end mr-4'>
                     <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13} onChange={forgotPassword}></TouchableText>

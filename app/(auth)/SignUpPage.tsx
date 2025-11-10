@@ -15,10 +15,11 @@ export default function SignUpPage() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('iimie');
-    const [nick, setNick] = useState('nick');
-    const [surname, setSurname] = useState('nazwisko');
-    const [city, setCity] = useState('Krakow');
+    const [secPassword, setSecPassword] = useState('');
+    const [name, setName] = useState('');
+    const [nick, setNick] = useState('');
+    const [surname, setSurname] = useState('');
+    const [city, setCity] = useState('');
     const [showContent, setShowContent] = useState(false);
 
     //font 
@@ -34,8 +35,8 @@ export default function SignUpPage() {
         return <ActivityIndicator size={'large'} />;
     }
 
-    const SignUp = async () => {
-        console.log("dziala");
+
+    const SignUp = () => {
     }
     const switchToSignIn = () => {
         router.replace("/(auth)")
@@ -52,25 +53,25 @@ export default function SignUpPage() {
                     <Text style={styles.text} className='text-4xl'>Stwórz konto</Text>
                 </View>
                 <View className='mt-6'>
-                    <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail'></ValueInput>
+                    <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail' onChangeText={setEmail}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F' iconName='Name'></ValueInput>
+                    <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F' iconName='Name' onChangeText={setNick}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Imie' placeholder='Wpisz swoje imię' color='#61897F' iconName='Name'></ValueInput>
+                    <ValueInput title='Imie' placeholder='Wpisz swoje imię' color='#61897F' iconName='Name' onChangeText={setName}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Nazwisko' placeholder='Wpisz swoje nazwisko' color='#61897F' iconName='Name'></ValueInput>
+                    <ValueInput title='Nazwisko' placeholder='Wpisz swoje nazwisko' color='#61897F' iconName='Name' onChangeText={setSurname}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Miasto' placeholder='Wpisz swoje miasto' color='#61897F' iconName='City'></ValueInput>
+                    <ValueInput title='Miasto' placeholder='Wpisz swoje miasto' color='#61897F' iconName='City' onChangeText={setCity}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Lock'></ValueInput>
+                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Lock' onChangeText={setPassword}></ValueInput>
                 </View>
                 <View className='mt-2'>
-                    <ValueInput title='Potwierdź hasło' placeholder='Wpisz swoje hasło jeszcze raz' color='#61897F' secureTextEntry={true} iconName='Key'></ValueInput>
+                    <ValueInput title='Potwierdź hasło' placeholder='Wpisz swoje hasło jeszcze raz' color='#61897F' secureTextEntry={true} iconName='Key' onChangeText={setSecPassword}></ValueInput>
                 </View>
                 <View style={{ height: 30 }}></View>
                 <ButtonFunction text='Zarejestruj się' onChange={SignUp} textColor='primary' />
@@ -81,7 +82,7 @@ export default function SignUpPage() {
                     <TouchableText text='Zaloguj się' onChange={switchToSignIn} fontSize={13} color='#14b8a6'></TouchableText>
                 </View>
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     )
 }
 

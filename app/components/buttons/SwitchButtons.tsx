@@ -69,3 +69,5 @@ const styles = StyleSheet.create({
         fontFamily: 'Lexend-Bold',
     },
 });
+
+export default SwitchButtons;

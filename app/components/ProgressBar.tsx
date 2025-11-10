@@ -18,3 +18,4 @@ export const ProgressBar: React.FC<Props> = ({ value }) => {
     )
 };
 
+export default ProgressBar;

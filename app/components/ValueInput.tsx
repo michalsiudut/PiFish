@@ -55,3 +55,5 @@ const styles = StyleSheet.create({
         color: '#61897F',
     }
 })
+
+export default ValueInput;

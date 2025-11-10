@@ -6,7 +6,7 @@ interface Props {
     text: string;
     color: string;
     fontSize: number;
-    onChange: () => void;
+    onChange?: () => void;
 }
 
 export const TouchableText: React.FC<Props> = ({ text, color, fontSize, onChange }) => {
@@ -29,3 +29,6 @@ export const TouchableText: React.FC<Props> = ({ text, color, fontSize, onChange
         </>
     )
 };
+
+
+export default TouchableText;

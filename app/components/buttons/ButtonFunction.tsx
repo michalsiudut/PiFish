@@ -28,3 +28,5 @@ export const ButtonFunction: React.FC<Props> = ({ text, onChange, textColor }) =
         </>
     )
 };
+
+export default ButtonFunction;

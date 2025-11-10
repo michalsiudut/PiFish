@@ -50,7 +50,7 @@ export default function index() {
     }
 
     const switchToSignUp = () => {
-        router.push('/(auth)/SignUpPage');
+        router.replace('/(auth)/SignUpPage');
     }
 
     const forgotPassword = () => {

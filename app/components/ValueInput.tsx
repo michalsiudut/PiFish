@@ -32,18 +32,19 @@ export const ValueInput: React.FC<Props> = ({
             <View className='justify-center ml-4 mb-2'>
                 <Text className='text-base' style={styles.text}>{title}</Text>
             </View>
-            <View className='ml-4 h-14 text-primary justify-center border-[#6B7280] border rounded-lg w-auto mr-5 mb-4'>
-                <View className='flex-row justify-between'>
+            <View
+                className='ml-4 h-14 text-primary justify-center border border-[#6B7280] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'>
+                <View className='flex-row items-center'>
                     <TextInput
                         placeholder={placeholder}
-                        className='text-justify ml-3'
+                        className='text-justify ml-3 flex-1'
                         placeholderTextColor={color}
                         style={styles.text}
                         value={value}
                         secureTextEntry={secureTextEntry}
                         onChangeText={onChangeText}>
                     </TextInput>
-                    {iconName && <Image source={images[iconName]} style={styles.icon} className='mr-5'></Image>}
+                    {iconName && <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image>}
                 </View>
             </View>
         </>

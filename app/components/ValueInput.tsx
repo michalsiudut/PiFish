@@ -5,8 +5,8 @@ import { useFontStatus } from '../hooks/useFontStatus';
 interface Props {
     title: string;
     placeholder: string;
-    value: string;
-    onChangeText: (text: string) => void;
+    value?: string;
+    onChangeText?: (text: string) => void;
     secureTextEntry?: boolean;
     color: string
 }
@@ -28,7 +28,7 @@ export const ValueInput: React.FC<Props> = ({
             <View className='justify-center ml-4 mb-2'>
                 <Text className='text-base' style={styles.text}>{title}</Text>
             </View>
-            <View className='ml-4 h-14 text-primary justify-center border-[#6B7280] border rounded-lg w-auto mr-4 mb-4'>
+            <View className='ml-4 h-14 text-primary justify-center border-[#6B7280] border rounded-lg w-auto mr-20 mb-4'>
                 <TextInput
                     placeholder={placeholder}
                     className='text-justify ml-3'

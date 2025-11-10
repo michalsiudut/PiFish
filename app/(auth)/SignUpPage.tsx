@@ -1,9 +1,13 @@
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
+import { icons } from '../../constants/icons';
 
-import { ActivityIndicator } from 'react-native';
+import { ButtonFunction } from '@/app/components/buttons/ButtonFunction';
+import { TouchableText } from '@/app/components/buttons/TouchableText';
+import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
 
 export default function SignUpPage() {
@@ -12,6 +16,7 @@ export default function SignUpPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('iimie');
+    const [nick, setNick] = useState('nick');
     const [surname, setSurname] = useState('nazwisko');
     const [city, setCity] = useState('Krakow');
     const [showContent, setShowContent] = useState(false);
@@ -29,9 +34,54 @@ export default function SignUpPage() {
         return <ActivityIndicator size={'large'} />;
     }
 
+    const SignUp = async () => {
+        console.log("dziala");
+    }
+    const switchToSignIn = () => {
+        router.replace("/(auth)")
+    }
+
     return (
-        <SafeAreaView>
-            <Text>Siema</Text>
+
+        <SafeAreaView style={{ flex: 1 }}>
+            <View className='justify-center items-center mt-12'>
+                <Image source={icons.WelcomeIcon} style={styles.icon}></Image>
+            </View>
+            <View className='justify-center items-center mt-7'>
+                <Text style={styles.text} className='text-4xl'>Stwórz konto</Text>
+            </View>
+            <ScrollView style={{ flex: 1 }}>
+                <View className='mt-6'>
+                    <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F'></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F'></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Imie' placeholder='Wpisz swoje imię' color='#61897F'></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Nazwisko' placeholder='Wpisz swoje nazwisko' color='#61897F'></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Miasto' placeholder='Wpisz swoje miasto' color='#61897F'></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true}></ValueInput>
+                </View>
+                <View className='mt-2'>
+                    <ValueInput title='Potwierdź hasło' placeholder='Wpisz swoje hasło jeszcze raz' color='#61897F' secureTextEntry={true}></ValueInput>
+                </View>
+                <View style={{ height: 30 }}></View>
+            </ScrollView>
+            <ButtonFunction text='Zarejestruj się' onChange={SignUp} textColor='primary' />
+            <View className='mb-4 justify-center items-center flex-row gap-1'>
+                <Text style={styles.textShadow}>
+                    Nie masz konta?
+                </Text>
+                <TouchableText text='Zaloguj się' onChange={switchToSignIn} fontSize={13} color='#14b8a6'></TouchableText>
+            </View>
+
         </SafeAreaView>
     )
 }
@@ -44,5 +94,10 @@ const styles = StyleSheet.create({
     textShadow: {
         fontFamily: 'Lexend-Bold',
         color: '#61897F',
+    },
+    icon: {
+        width: 53,
+        height: 53,
+        tintColor: "#14b8a6"
     }
 })

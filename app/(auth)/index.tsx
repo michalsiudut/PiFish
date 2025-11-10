@@ -89,9 +89,7 @@ export default function index() {
                 <View className='justify-center items-end mr-4'>
                     <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13} onChange={forgotPassword}></TouchableText>
                 </View>
-                <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center'>
-                    <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
-                </View>
+                <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
                 <View className='mt-7 justify-center items-center flex-row gap-1'>
                     <Text style={styles.textShadow}>
                         Nie masz konta?

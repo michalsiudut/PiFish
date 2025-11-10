@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
+import { ActivityIndicator, Text, TouchableOpacity, View } from 'react-native';
 import { useFontStatus } from '../../hooks/useFontStatus';
 
 interface Props {
@@ -20,11 +20,13 @@ export const ButtonFunction: React.FC<Props> = ({ text, onChange, textColor }) =
 
     return (
         <>
-            <TouchableOpacity onPress={onChange} className='items-center justify-center'>
-                <Text style={{ fontFamily: "Lexend-Bold", color: textColor }}>
-                    {text}
-                </Text>
-            </TouchableOpacity >
+            <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center mb-5'>
+                <TouchableOpacity onPress={onChange} className='items-center justify-center'>
+                    <Text style={{ fontFamily: "Lexend-Bold", color: textColor }}>
+                        {text}
+                    </Text>
+                </TouchableOpacity >
+            </View >
         </>
     )
 };

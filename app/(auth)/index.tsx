@@ -41,7 +41,6 @@ export default function index() {
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             if (user) {
-                console.log("success");
                 router.replace('/(tabs)')
             }
         } catch (error) {
@@ -55,7 +54,7 @@ export default function index() {
     }
 
     const forgotPassword = () => {
-        console.log("forgot password");
+        router.push('/(auth)/ForgotPassword');
     }
 
     return (

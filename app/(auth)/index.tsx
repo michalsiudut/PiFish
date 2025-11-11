@@ -1,8 +1,8 @@
+import Loader from '@/app/components/Loader';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Image, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
-
 
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ActivityIndicator } from 'react-native';
@@ -18,10 +18,8 @@ export default function index() {
     const router = useRouter();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name, setName] = useState('iimie');
-    const [surname, setSurname] = useState('nazwisko');
-    const [city, setCity] = useState('Krakow');
     const [showContent, setShowContent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     //font 
     const isLoaded = useFontStatus();
@@ -35,9 +33,11 @@ export default function index() {
     if (!showContent) {
         return <ActivityIndicator size={'large'} />;
     }
+    // end font
 
 
     const signIn = async () => {
+        setIsLoading(true);
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             if (user) {
@@ -46,6 +46,7 @@ export default function index() {
             }
         } catch (error) {
             console.log(error)
+            setIsLoading(false);
         }
     }
 
@@ -60,6 +61,7 @@ export default function index() {
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView>
+                {isLoading ? (<Loader />) : (<View></View>)}
                 <View className='justify-center items-center mt-24 mb-6'>
                     <Image source={images.WelcomeIcon} style={{ width: 53, height: 53, tintColor: "#14b8a6" }}>
                     </Image>

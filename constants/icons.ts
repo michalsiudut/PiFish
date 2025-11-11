@@ -1,3 +1,4 @@
+import Arrow from "../assets/icons/arrow.png"
 import Bell from "../assets/icons/Bell.png"
 import C from "../assets/icons/C.png"
 import Calendar from "../assets/icons/Calendar.png"
@@ -23,6 +24,7 @@ import T from "../assets/icons/T.png"
 import User from "../assets/icons/user.png"
 import WA from "../assets/icons/WA.png"
 import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
+
 
 
 export const icons = {
@@ -51,4 +53,5 @@ export const icons = {
     User,
     Mail,
     Key,
+    Arrow,
 }

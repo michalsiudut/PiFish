@@ -1,14 +1,16 @@
+import { icons as images } from '@/constants/icons';
 import React from 'react';
-import { ActivityIndicator, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useFontStatus } from '../hooks/useFontStatus';
 
 interface Props {
     title: string;
     placeholder: string;
-    value: string;
-    onChangeText: (text: string) => void;
+    value?: string;
+    onChangeText?: (text: string) => void;
     secureTextEntry?: boolean;
     color: string
+    iconName?: keyof typeof images;
 }
 
 export const ValueInput: React.FC<Props> = ({
@@ -18,28 +20,33 @@ export const ValueInput: React.FC<Props> = ({
     onChangeText,
     secureTextEntry = false,
     color,
+    iconName,
 }) => {
     const isLoaded = useFontStatus();
     if (!isLoaded) {
         return <ActivityIndicator size={'small'} />
     }
+
     return (
         <>
             <View className='justify-center ml-4 mb-2'>
                 <Text className='text-base' style={styles.text}>{title}</Text>
             </View>
-            <View className='ml-4 h-14 text-primary justify-center border-[#6B7280] border rounded-lg w-auto mr-4 mb-4'>
-                <TextInput
-                    placeholder={placeholder}
-                    className='text-justify ml-3'
-                    placeholderTextColor={color}
-                    style={styles.text}
-                    value={value}
-                    secureTextEntry={secureTextEntry}
-                    onChangeText={onChangeText}>
-                </TextInput>
+            <View
+                className='ml-4 h-14 text-primary justify-center border border-[#6B7280] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'>
+                <View className='flex-row items-center'>
+                    <TextInput
+                        placeholder={placeholder}
+                        className='text-justify ml-3 flex-1'
+                        placeholderTextColor={color}
+                        style={styles.text}
+                        value={value}
+                        secureTextEntry={secureTextEntry}
+                        onChangeText={onChangeText}>
+                    </TextInput>
+                    {iconName && <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image>}
+                </View>
             </View>
-
         </>
     )
 };
@@ -53,6 +60,13 @@ const styles = StyleSheet.create({
     textShadow: {
         fontFamily: 'Lexend-Bold',
         color: '#61897F',
+    },
+    icon: {
+        height: 28,
+        width: 28,
+        tintColor: '#14b8a6',
+        color: '#14b8a6',
+        fontWeight: 900,
     }
 })
 

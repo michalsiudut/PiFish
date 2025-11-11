@@ -55,7 +55,7 @@ export default function index() {
     }
 
     const forgotPassword = () => {
-        console.log("Smiga");
+        console.log("forgot password");
     }
 
     return (
@@ -78,6 +78,7 @@ export default function index() {
                     value={email}
                     onChangeText={setEmail}
                     color="#61897F"
+                    iconName='Mail'
                 />
 
                 <ValueInput
@@ -87,13 +88,12 @@ export default function index() {
                     onChangeText={setPassword}
                     color="#61897F"
                     secureTextEntry={true}
+                    iconName='Key'
                 />
                 <View className='justify-center items-end mr-4'>
                     <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13} onChange={forgotPassword}></TouchableText>
                 </View>
-                <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center'>
-                    <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
-                </View>
+                <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
                 <View className='mt-7 justify-center items-center flex-row gap-1'>
                     <Text style={styles.textShadow}>
                         Nie masz konta?

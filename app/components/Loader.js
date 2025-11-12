@@ -1,6 +1,6 @@
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-const NajprostszyLoader = () => {
+const Loader = () => {
     return (
         <View style={styles.container}>
             <ActivityIndicator
@@ -27,4 +27,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NajprostszyLoader;
+export default Loader;

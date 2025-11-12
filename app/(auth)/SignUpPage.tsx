@@ -10,6 +10,7 @@ import { doc, setDoc } from 'firebase/firestore';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '../../FirebaseConfig';
+import Loader from '../components/Loader';
 import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
 
@@ -20,6 +21,7 @@ export default function SignUpPage() {
     const [password, setPassword] = useState('');
     const [nick, setNick] = useState('');
     const [showContent, setShowContent] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     //font 
     const isLoaded = useFontStatus();
@@ -33,9 +35,11 @@ export default function SignUpPage() {
     if (!showContent) {
         return <ActivityIndicator size={'large'} />;
     }
+    // end font 
 
 
     const SignUp = async () => {
+        setIsLoading(true);
         try {
             const user = await createUserWithEmailAndPassword(auth, email, password);
             const userUID = user.user.uid;
@@ -49,13 +53,16 @@ export default function SignUpPage() {
                 })
 
                 console.log("success");
-                router.replace('/(tabs)')
+                setIsLoading(false);
+                router.replace('/(tabs)');
             }
         } catch (error) {
             console.log(error)
+            setIsLoading(false);
         }
     }
     const switchToSignIn = () => {
+        setIsLoading(false);
         router.replace("/(auth)")
     }
 
@@ -85,6 +92,7 @@ export default function SignUpPage() {
                     </Text>
                     <TouchableText text='Zaloguj się' onChange={switchToSignIn} fontSize={13} color='#14b8a6'></TouchableText>
                 </View>
+                {isLoading ? <Loader /> : <View></View>}
             </SafeAreaView >
         </TouchableWithoutFeedback>
     )

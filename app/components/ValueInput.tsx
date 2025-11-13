@@ -11,6 +11,7 @@ interface Props {
     secureTextEntry?: boolean;
     color: string
     iconName?: keyof typeof images;
+    isValid?: boolean
 }
 
 export const ValueInput: React.FC<Props> = ({
@@ -21,19 +22,22 @@ export const ValueInput: React.FC<Props> = ({
     secureTextEntry = false,
     color,
     iconName,
+    isValid = true,
 }) => {
     const isLoaded = useFontStatus();
     if (!isLoaded) {
         return <ActivityIndicator size={'small'} />
     }
-
     return (
         <>
             <View className='justify-center ml-4 mb-2'>
                 <Text className='text-base' style={styles.text}>{title}</Text>
             </View>
-            <View
-                className='ml-4 h-14 text-primary justify-center border border-[#6B7280] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'>
+            <View className={
+                isValid
+                    ? 'ml-4 h-14 text-primary justify-center border border-[#6B7280] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'
+                    : 'ml-4 h-14 text-primary justify-center border border-[#EF4545] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'
+            }>
                 <View className='flex-row items-center'>
                     <TextInput
                         placeholder={placeholder}
@@ -46,7 +50,7 @@ export const ValueInput: React.FC<Props> = ({
                     </TextInput>
                     {iconName && <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image>}
                 </View>
-            </View>
+            </View >
         </>
     )
 };

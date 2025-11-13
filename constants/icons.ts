@@ -6,6 +6,7 @@ import City from "../assets/icons/city.png"
 import F from "../assets/icons/F.png"
 import GA from "../assets/icons/GA.png"
 import Home from "../assets/icons/Home.png"
+import Info from "../assets/icons/info.png"
 import Key from "../assets/icons/key.png"
 import Lock from "../assets/icons/lock.png"
 import LR from "../assets/icons/LR.png"
@@ -54,4 +55,5 @@ export const icons = {
     Mail,
     Key,
     Arrow,
+    Info,
 }

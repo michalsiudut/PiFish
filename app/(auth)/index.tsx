@@ -20,7 +20,9 @@ export default function index() {
     const [password, setPassword] = useState('');
     const [showContent, setShowContent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const [emailValid, setEmailValid] = useState('');
+    const [passwordValid, setPasswordValid] = useState('');
+    const [credentialValid, setCredentialValid] = useState(true);
     //font 
     const isLoaded = useFontStatus();
     useEffect(() => {
@@ -38,14 +40,40 @@ export default function index() {
 
     const signIn = async () => {
         setIsLoading(true);
+        //validation fronted
+        if (!email.trim()) {
+            setEmailValid('Adres email jest wymagany');
+        } else if (!/\S+@\S+\.\S+/.test(email)) {
+            setEmailValid('Proszę wprowadzić prawidłowy adres email.');
+        } else {
+            setEmailValid('');
+        }
+        if (!password.trim()) {
+            setPasswordValid("Hasło jest wymagane");
+        } else if (password.length < 6) {
+            setPasswordValid("Hasło musi mieć minuimum 6 znaków");
+        }
+        else {
+            setPasswordValid("");
+        }
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             if (user) {
                 router.replace('/(tabs)')
             }
         } catch (error) {
+            const firebaseError = error as { code: string; message: string };
             console.log(error)
             setIsLoading(false);
+            setCredentialValid(true);
+            switch (firebaseError.code) {
+                case "auth/invalid-credential":
+                    setCredentialValid(false);
+                    break;
+
+                default:
+                    break;
+            }
         }
     }
 
@@ -78,8 +106,15 @@ export default function index() {
                     onChangeText={setEmail}
                     color="#61897F"
                     iconName='Mail'
+                    isValid={emailValid != '' ? false : true}
                 />
-
+                {emailValid != '' ? (
+                    <View className='ml-4 mb-2 flex-row gap-2 items-center'>
+                        <Image source={images.Info} style={styles.icon}></Image>
+                        <Text style={styles.textWarning} className=''>{emailValid}</Text>
+                    </View>
+                ) :
+                    (<View></View>)}
                 <ValueInput
                     title="Hasło"
                     placeholder="Wpisz swoje hasło"
@@ -88,7 +123,15 @@ export default function index() {
                     color="#61897F"
                     secureTextEntry={true}
                     iconName='Key'
+                    isValid={passwordValid == "" ? true : false}
                 />
+                {passwordValid != '' ? (
+                    <View className='ml-4 mb-2 flex-row gap-2 items-center'>
+                        <Image source={images.Info} style={styles.icon}></Image>
+                        <Text style={styles.textWarning} className=''>{passwordValid}</Text>
+                    </View>
+                ) :
+                    (<View></View>)}
                 <View className='justify-center items-end mr-4'>
                     <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13} onChange={forgotPassword}></TouchableText>
                 </View>
@@ -112,5 +155,15 @@ const styles = StyleSheet.create({
     textShadow: {
         fontFamily: 'Lexend-Bold',
         color: '#61897F',
+    },
+    textWarning: {
+        fontFamily: 'Lexend-Regular',
+        color: '#EF4545',
+        fontSize: 13,
+    },
+    icon: {
+        width: 12,
+        height: 12,
+        tintColor: '#EF4545',
     }
 })

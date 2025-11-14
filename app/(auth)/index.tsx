@@ -8,6 +8,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth } from '../../FirebaseConfig';
+import { ValidationView } from '../components/ValidationView';
 import { ValueInput } from '../components/ValueInput';
 import { ButtonFunction } from "../components/buttons/ButtonFunction";
 import { TouchableText } from '../components/buttons/TouchableText';
@@ -105,10 +106,7 @@ export default function index() {
                     isValid={emailValid != '' ? false : true}
                 />
                 {emailValid != '' ? (
-                    <View className='ml-4 mb-2 flex-row gap-2 items-center'>
-                        <Image source={images.Info} style={styles.icon}></Image>
-                        <Text style={styles.textWarning} className=''>{emailValid}</Text>
-                    </View>
+                    <ValidationView text={emailValid}></ValidationView>
                 ) :
                     (<View></View>)}
                 <ValueInput
@@ -122,10 +120,7 @@ export default function index() {
                     isValid={passwordValid == "" ? true : false}
                 />
                 {passwordValid != '' ? (
-                    <View className='ml-4 mb-2 flex-row gap-2 items-center'>
-                        <Image source={images.Info} style={styles.icon}></Image>
-                        <Text style={styles.textWarning} className=''>{passwordValid}</Text>
-                    </View>
+                    <ValidationView text={passwordValid}></ValidationView>
                 ) :
                     (<View></View>)}
                 <View className='justify-center items-end mr-4'>

@@ -11,8 +11,10 @@ import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '../../FirebaseConfig';
 import Loader from '../components/Loader';
+import { ValidationView } from '../components/ValidationView';
 import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
+import { validationEmail, validationNick, validationPassword } from '../hooks/validations';
 
 export default function SignUpPage() {
 
@@ -22,6 +24,10 @@ export default function SignUpPage() {
     const [nick, setNick] = useState('');
     const [showContent, setShowContent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
+    //validation
+    const [emailValid, setEmailValid] = useState("");
+    const [passwordValid, setPasswordValid] = useState("");
+    const [nickValid, setNickValid] = useState("");
 
     //font 
     const isLoaded = useFontStatus();
@@ -40,6 +46,21 @@ export default function SignUpPage() {
 
     const SignUp = async () => {
         setIsLoading(true);
+
+        //validation
+        const emailError = validationEmail(email);
+        const passwordError = validationPassword(password);
+        const nickError = validationNick(nick);
+
+        setEmailValid(emailError);
+        setPasswordValid(passwordError);
+        setNickValid(nickError);
+
+        if (emailError !== '' || passwordError !== '') {
+            setIsLoading(false);
+            return;
+        }
+        // end validation 
         try {
             const user = await createUserWithEmailAndPassword(auth, email, password);
             const userUID = user.user.uid;
@@ -78,12 +99,15 @@ export default function SignUpPage() {
                 <View className='mt-6'>
                     <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail' onChangeText={setEmail}></ValueInput>
                 </View>
+                {emailValid != "" ? (<ValidationView text={emailValid}></ValidationView>) : (<View></View>)}
                 <View className='mt-2'>
                     <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F' iconName='Name' onChangeText={setNick}></ValueInput>
                 </View>
+                {nickValid != "" ? (<ValidationView text={nickValid}></ValidationView>) : (<View></View>)}
                 <View className='mt-2'>
                     <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Key' onChangeText={setPassword}></ValueInput>
                 </View>
+                {passwordValid != "" ? (<ValidationView text={passwordValid}></ValidationView>) : (<View></View>)}
                 <View style={{ height: 13 }}></View>
                 <ButtonFunction text='Zarejestruj się' onChange={SignUp} textColor='primary' />
                 <View className='mb-4 justify-center items-center flex-row gap-1'>

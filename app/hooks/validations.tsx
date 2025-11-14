@@ -21,3 +21,18 @@ export const validationPassword = (password: string) => {
     }
 
 }
+export const validationNick = (nick: string) => {
+    const allowedCharsRegex = /^[a-zA-Z0-9]+$/;
+
+    if (!nick.trim()) {
+        return ("Nick jest wymagany");
+    } else if (nick.length < 6) {
+        return ("Nick musi mieć minuimum 6 znaków");
+    } else if (!allowedCharsRegex.test(nick)) {
+        return ("Nick może zawierać tylko litery i cyfry");
+    }
+    else {
+        return ('');
+    }
+
+}

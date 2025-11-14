@@ -97,15 +97,15 @@ export default function SignUpPage() {
                     <Text style={styles.text} className='text-4xl'>Stwórz konto</Text>
                 </View>
                 <View className='mt-6'>
-                    <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail' onChangeText={setEmail}></ValueInput>
+                    <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail' onChangeText={setEmail} isValid={emailValid == "" ? true : false}></ValueInput>
                 </View>
                 {emailValid != "" ? (<ValidationView text={emailValid}></ValidationView>) : (<View></View>)}
                 <View className='mt-2'>
-                    <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F' iconName='Name' onChangeText={setNick}></ValueInput>
+                    <ValueInput title='Nazwa użytkownika' placeholder='Wpisz swoją nazwę użytkownika' color='#61897F' iconName='Name' onChangeText={setNick} isValid={nickValid == "" ? true : false}></ValueInput>
                 </View>
                 {nickValid != "" ? (<ValidationView text={nickValid}></ValidationView>) : (<View></View>)}
                 <View className='mt-2'>
-                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Key' onChangeText={setPassword}></ValueInput>
+                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Key' onChangeText={setPassword} isValid={passwordValid == "" ? true : false}></ValueInput>
                 </View>
                 {passwordValid != "" ? (<ValidationView text={passwordValid}></ValidationView>) : (<View></View>)}
                 <View style={{ height: 13 }}></View>

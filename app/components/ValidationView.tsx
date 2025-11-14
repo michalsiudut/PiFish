@@ -9,7 +9,7 @@ interface Props {
 export const ValidationView = ({ text }: Props) => {
 
     return (<>
-        <View className='ml-4 mb-2 flex-row gap-2 items-center'>
+        <View className='ml-4 flex-row gap-2 items-center'>
             <Image source={images.Info} style={styles.icon}></Image>
             <Text style={styles.textWarning} className=''>{text}</Text>
         </View>

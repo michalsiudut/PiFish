@@ -36,7 +36,7 @@ export const ValueInput: React.FC<Props> = ({
             <View className={
                 isValid
                     ? 'ml-4 h-14 text-primary justify-center border border-[#6B7280] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'
-                    : 'ml-4 h-14 text-primary justify-center border border-[#EF4545] rounded-lg w-auto mr-5 mb-4 focus:border-secondary focus:border-2'
+                    : 'ml-4 h-14 text-primary justify-center border border-[#EF4545] rounded-lg w-auto mr-5 mb-2 focus:border-secondary focus:border-2'
             }>
                 <View className='flex-row items-center'>
                     <TextInput

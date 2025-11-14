@@ -12,6 +12,7 @@ import { ValueInput } from '../components/ValueInput';
 import { ButtonFunction } from "../components/buttons/ButtonFunction";
 import { TouchableText } from '../components/buttons/TouchableText';
 import { useFontStatus } from '../hooks/useFontStatus';
+import { validationEmail, validationPassword } from '../hooks/validations';
 
 export default function index() {
 
@@ -20,7 +21,7 @@ export default function index() {
     const [password, setPassword] = useState('');
     const [showContent, setShowContent] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [emailValid, setEmailValid] = useState('');
+    const [emailValid, setEmailValid] = useState("");
     const [passwordValid, setPasswordValid] = useState('');
     const [credentialValid, setCredentialValid] = useState(true);
     //font 
@@ -40,22 +41,18 @@ export default function index() {
 
     const signIn = async () => {
         setIsLoading(true);
-        //validation fronted
-        if (!email.trim()) {
-            setEmailValid('Adres email jest wymagany');
-        } else if (!/\S+@\S+\.\S+/.test(email)) {
-            setEmailValid('Proszę wprowadzić prawidłowy adres email.');
-        } else {
-            setEmailValid('');
+
+        const emailError = validationEmail(email);
+        const passwordError = validationPassword(password);
+
+        setEmailValid(emailError);
+        setPasswordValid(passwordError);
+
+        if (emailError !== '' || passwordError !== '') {
+            setIsLoading(false);
+            return;
         }
-        if (!password.trim()) {
-            setPasswordValid("Hasło jest wymagane");
-        } else if (password.length < 6) {
-            setPasswordValid("Hasło musi mieć minuimum 6 znaków");
-        }
-        else {
-            setPasswordValid("");
-        }
+
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             if (user) {
@@ -65,7 +62,6 @@ export default function index() {
             const firebaseError = error as { code: string; message: string };
             console.log(error)
             setIsLoading(false);
-            setCredentialValid(true);
             switch (firebaseError.code) {
                 case "auth/invalid-credential":
                     setCredentialValid(false);

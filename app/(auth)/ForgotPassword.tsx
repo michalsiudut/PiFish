@@ -6,13 +6,18 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Loader from '../components/Loader';
+import { ValidationView } from '../components/ValidationView';
 import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
+import { validationEmail } from '../hooks/validations';
 
 export default function ForgotPassword() {
     const router = useRouter();
     const [showContent, setShowContent] = useState(false);
     const [email, setEmail] = useState('');
+    const [emailValid, setEmailValid] = useState('');
+    const [isLoadingg, setIsLoading] = useState(false);
 
     //font 
     const isLoaded = useFontStatus();
@@ -33,12 +38,23 @@ export default function ForgotPassword() {
     }
 
     const sendCode = async () => {
-        try {
-            await sendPasswordResetEmail(auth, email);
-            alert("Jeśli adres e-mail jest zarejestrowany, link do resetowania hasła został wysłany.");
+        setIsLoading(true);
 
+        const emailError = validationEmail(email);
+
+        setEmailValid(emailError);
+        if (emailError !== '') {
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const user = await sendPasswordResetEmail(auth, email);
+            console.log("see");
+            setIsLoading(false);
         } catch (error) {
-            // handle error
+            console.log(error)
+            setIsLoading(false);
         }
     }
 
@@ -51,6 +67,7 @@ export default function ForgotPassword() {
                 <View className='mt-16 justify-center items-center'>
                     <Image source={icons.WelcomeIcon} style={styles.icon}></Image>
                 </View>
+                {isLoadingg ? <Loader /> : <View></View>}
                 <View className='mt-6 justify-center items-center'>
                     <Text style={styles.text} className='text-4xl'>
                         Odzyskaj hasło
@@ -62,7 +79,8 @@ export default function ForgotPassword() {
                     </View>
                 </View>
                 <View className='mt-8'>
-                    <ValueInput title='Email' placeholder='Wpisz swój adres e-mail' color='#61897F' value={email} onChangeText={setEmail} iconName='Mail'></ValueInput>
+                    <ValueInput title='Email' placeholder='Wpisz swój adres e-mail' color='#61897F' value={email} onChangeText={setEmail} iconName='Mail' isValid={emailValid != '' ? false : true}></ValueInput>
+                    {emailValid != '' ? <ValidationView text={emailValid}></ValidationView> : <View></View>}
                 </View>
                 <ButtonFunction text='Wyślij kod' onChange={sendCode} textColor='primary'>
                 </ButtonFunction>

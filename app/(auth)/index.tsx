@@ -25,6 +25,7 @@ export default function index() {
     const [emailValid, setEmailValid] = useState("");
     const [passwordValid, setPasswordValid] = useState('');
     const [credentialValid, setCredentialValid] = useState(true);
+    const [credentail, setCredentail] = useState('')
     //font 
     const isLoaded = useFontStatus();
     useEffect(() => {
@@ -66,6 +67,11 @@ export default function index() {
             switch (firebaseError.code) {
                 case "auth/invalid-credential":
                     setCredentialValid(false);
+                    setCredentail("Nieprawidłowy adres email lub hasło");
+                    break;
+                case "auth/too-many-requests":
+                    setCredentialValid(false);
+                    setCredentail("Zbyt dużo prób logowania. Proszę spróbuj później")
                     break;
 
                 default:
@@ -96,6 +102,16 @@ export default function index() {
                 <View className='justify-center items-center mb-8'>
                     <Text className='text-base font-bold' style={styles.textShadow}>Zaloguj sie na swoje konto</Text>
                 </View>
+                {credentialValid == false ?
+                    <View className='flex-row'>
+                        <View className='bg-[#e29090] w-4 z-900 ml-4 h-24 rounded-tl-lg rounded-bl-lg'></View>
+                        <View className='flex-1 h-24 mb-3 mr-4 bg-[#f3baba] justify-center rounded-tr-lg rounded-br-lg'>
+                            <Text style={styles.text} className='ml-4'>{credentail}</Text>
+                        </View>
+                    </View>
+                    :
+                    <View>
+                    </View>}
                 <ValueInput
                     title="Email"
                     placeholder="Wpisz swój email"
@@ -149,6 +165,11 @@ const styles = StyleSheet.create({
     },
     textWarning: {
         fontFamily: 'Lexend-Regular',
+        color: '#EF4545',
+        fontSize: 13,
+    },
+    textWarning2: {
+        fontFamily: 'Lexend-Bold',
         color: '#EF4545',
         fontSize: 13,
     },

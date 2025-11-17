@@ -50,8 +50,10 @@ export default function ForgotPassword() {
 
         try {
             const user = await sendPasswordResetEmail(auth, email);
-            console.log("see");
+            alert(
+                "Wysłano email resetujący hasło, jeśli konto powiązane z tym emailem istnieje");
             setIsLoading(false);
+            router.back();
         } catch (error) {
             console.log(error)
             setIsLoading(false);

@@ -9,7 +9,7 @@ import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { auth, db } from '../../FirebaseConfig';
+import { auth, db } from '../../services/FirebaseConfig';
 import Loader from '../components/Loader';
 import { ValidationView } from '../components/ValidationView';
 import ValueInput from '../components/ValueInput';
@@ -116,7 +116,7 @@ export default function SignUpPage() {
                     </Text>
                     <TouchableText text='Zaloguj się' onChange={switchToSignIn} fontSize={13} color='#14b8a6'></TouchableText>
                 </View>
-                {isLoading ? <Loader /> : <View></View>}
+                {isLoading ? <Loader zIndex={-200} /> : <View></View>}
             </SafeAreaView >
         </TouchableWithoutFeedback>
     )

@@ -7,7 +7,7 @@ import { icons as images } from '../../constants/icons';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { auth } from '../../FirebaseConfig';
+import { auth } from '../../services/FirebaseConfig';
 import { ValidationView } from '../components/ValidationView';
 import { ValueInput } from '../components/ValueInput';
 import { ButtonFunction } from "../components/buttons/ButtonFunction";

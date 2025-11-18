@@ -36,3 +36,5 @@ export const validationNick = (nick: string) => {
     }
 
 }
+
+export default validationEmail

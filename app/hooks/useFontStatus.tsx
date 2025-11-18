@@ -8,3 +8,5 @@ export const useFontStatus = () => {
 
     return { fontsLoaded };
 };
+
+export default useFontStatus

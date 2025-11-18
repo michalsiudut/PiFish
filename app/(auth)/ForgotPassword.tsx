@@ -1,6 +1,6 @@
 import { ButtonFunction } from '@/app/components/buttons/ButtonFunction';
 import { icons } from '@/constants/icons';
-import { auth } from '@/FirebaseConfig';
+import { auth } from '@/services/FirebaseConfig';
 import { sendPasswordResetEmail } from '@firebase/auth';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';

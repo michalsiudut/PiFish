@@ -1,31 +1,36 @@
-import { getAuth } from "@firebase/auth";
-import { router } from "expo-router";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
-import { auth } from "../../FirebaseConfig";
+import { auth } from "../../services/FirebaseConfig";
 import { SwitchButtons } from "../components/buttons/SwitchButtons";
 import { TouchableText } from "../components/buttons/TouchableText";
 import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
 import { useFontStatus } from "../hooks/useFontStatus";
+import getCurrentUserID from "../../services/user_services/getCurrentUserID"
+import { fetchCurrentUserNick } from "../../services/user_services/fetchCurrentUserNick"
 
 
 export default function Index() {
 
-  const user = "Jakub";
+  const userID = getCurrentUserID();
+  const [nick, setNick] = useState("");
+  useEffect(() => {
+    if (userID) {
+      fetchCurrentUserNick(userID).then(result => { setNick(result) })
+    }
+  }, [userID]);
   const percentage = 45
   const value = 144 * (percentage / 100);
+
+  //font
   const { fontsLoaded } = useFontStatus();
 
   if (!fontsLoaded) {
     return <ActivityIndicator size="small" />;
   }
-
-  getAuth().onAuthStateChanged((user) => {
-    if (!user) router.replace('/(auth)');
-  })
+  // end font
 
   const handleTopicPress = (id: number) => {
     // TODO go for topic from id
@@ -34,7 +39,7 @@ export default function Index() {
   return (
     <>
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
-        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {user}!</Text>
+        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
         <View className="justify-center flex-row items-center">
           <Image source={images.Bell} style={{
             width: 30,

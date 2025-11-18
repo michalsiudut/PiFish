@@ -28,3 +28,5 @@ const styles = StyleSheet.create({
         tintColor: '#EF4545',
     }
 })
+
+export default ValidationView;

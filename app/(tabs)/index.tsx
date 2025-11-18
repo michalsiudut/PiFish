@@ -9,18 +9,14 @@ import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
 import { useFontStatus } from "../hooks/useFontStatus";
 import getCurrentUserID from "../../services/user_services/getCurrentUserID"
-import { fetchCurrentUserNick } from "../../services/user_services/fetchCurrentUserNick"
+import { fetchUserSingleData } from "../../services/user_services/fetchUserSingleData"
 
 
 export default function Index() {
-
-  const userID = getCurrentUserID();
   const [nick, setNick] = useState("");
   useEffect(() => {
-    if (userID) {
-      fetchCurrentUserNick(userID).then(result => { setNick(result) })
-    }
-  }, [userID]);
+    fetchUserSingleData("Nick").then(result => { setNick(result) })
+  });
   const percentage = 45
   const value = 144 * (percentage / 100);
 
@@ -39,7 +35,7 @@ export default function Index() {
   return (
     <>
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
-        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, nick!</Text>
+        <Text className="text-3xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
         <View className="justify-center flex-row items-center">
           <Image source={images.Bell} style={{
             width: 30,
@@ -52,9 +48,6 @@ export default function Index() {
             height: 40,
           }}>
           </Image>
-          <TouchableOpacity onPress={() => auth.signOut()}>
-            <Text>Sign out</Text>
-          </TouchableOpacity>
         </View>
       </View >
       <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">

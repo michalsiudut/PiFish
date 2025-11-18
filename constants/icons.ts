@@ -25,7 +25,8 @@ import T from "../assets/icons/T.png"
 import User from "../assets/icons/user.png"
 import WA from "../assets/icons/WA.png"
 import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
-
+import Default from "../assets/icons/Default.png"
+import Edit from "../assets/icons/edit.png"
 
 
 export const icons = {
@@ -56,4 +57,6 @@ export const icons = {
     Key,
     Arrow,
     Info,
+    Default,
+    Edit
 }

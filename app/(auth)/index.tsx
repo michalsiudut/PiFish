@@ -85,13 +85,18 @@ export default function index() {
     }
 
     const forgotPassword = () => {
+        setEmailValid("");
+        setPasswordValid("");
+        setCredentail("");
+        setCredentialValid(true);
+
         router.push('/(auth)/ForgotPassword');
     }
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <SafeAreaView>
-                {isLoading ? (<Loader />) : (<View></View>)}
+                {isLoading ? (<Loader zIndex={-200} />) : (<View></View>)}
                 <View className='justify-center items-center mt-24 mb-6'>
                     <Image source={images.WelcomeIcon} style={{ width: 53, height: 53, tintColor: "#14b8a6" }}>
                     </Image>

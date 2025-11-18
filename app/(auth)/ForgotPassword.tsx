@@ -69,7 +69,7 @@ export default function ForgotPassword() {
                 <View className='mt-16 justify-center items-center'>
                     <Image source={icons.WelcomeIcon} style={styles.icon}></Image>
                 </View>
-                {isLoadingg ? <Loader /> : <View></View>}
+                {isLoadingg ? <Loader zIndex={-330} /> : <View></View>}
                 <View className='mt-6 justify-center items-center'>
                     <Text style={styles.text} className='text-4xl'>
                         Odzyskaj hasło

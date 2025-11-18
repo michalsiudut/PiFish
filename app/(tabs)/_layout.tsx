@@ -84,15 +84,6 @@ const _layout = () => {
                         focused={focused} />
                 )
             }} />
-            <Tabs.Screen name="Settings" options={{
-                title: "Ustawienia",
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                    <TabIcon
-                        icon={images.Settings}
-                        focused={focused} />
-                )
-            }} />
 
         </Tabs>
     )

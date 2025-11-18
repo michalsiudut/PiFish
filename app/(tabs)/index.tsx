@@ -39,7 +39,7 @@ export default function Index() {
   return (
     <>
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
-        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
+        <Text className="text-4xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, nick!</Text>
         <View className="justify-center flex-row items-center">
           <Image source={images.Bell} style={{
             width: 30,

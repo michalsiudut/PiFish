@@ -15,6 +15,7 @@ import { ValidationView } from '../components/ValidationView';
 import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
 import { validationEmail, validationNick, validationPassword } from '../hooks/validations';
+import { DataValidation } from '../components/DataValidation';
 
 export default function SignUpPage() {
 
@@ -28,6 +29,8 @@ export default function SignUpPage() {
     const [emailValid, setEmailValid] = useState("");
     const [passwordValid, setPasswordValid] = useState("");
     const [nickValid, setNickValid] = useState("");
+    const [credential, setCredential] = useState("");
+
 
     //font 
     const isLoaded = useFontStatus();
@@ -78,7 +81,20 @@ export default function SignUpPage() {
                 router.replace('/(tabs)');
             }
         } catch (error) {
+            const firebaseError = error as { code: string; message: string };
             console.log(error)
+            setIsLoading(false);
+            switch (firebaseError.code) {
+                case "auth/email-already-in-use":
+                    console.log("success");
+                    setCredential("Ten email jest już w użyciu");
+                    setEmail("");
+                    setIsLoading(false);
+                    break;
+
+                default:
+                    break;
+            }
             setIsLoading(false);
         }
     }
@@ -96,7 +112,8 @@ export default function SignUpPage() {
                 <View className='justify-center items-center mt-7'>
                     <Text style={styles.text} className='text-4xl'>Stwórz konto</Text>
                 </View>
-                <View className='mt-6'>
+                {credential != "" ? <View className='mt-4'><DataValidation credential={credential} /></View> : <View></View>}
+                <View className={credential ? "mt-2" : 'mt-6'}>
                     <ValueInput title='Email' placeholder='Wpisz swój email' color='#61897F' iconName='Mail' onChangeText={setEmail} isValid={emailValid == "" ? true : false}></ValueInput>
                 </View>
                 {emailValid != "" ? (<ValidationView text={emailValid}></ValidationView>) : (<View></View>)}

@@ -137,7 +137,7 @@ export default function index() {
                     onChangeText={setPassword}
                     color="#61897F"
                     secureTextEntry={true}
-                    iconName='Key'
+                    iconName='Eyeh'
                     isValid={passwordValid == "" ? true : false}
                 />
                 {passwordValid != '' ? (

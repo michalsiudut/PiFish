@@ -1,6 +1,6 @@
 import { icons as images } from '@/constants/icons';
-import React from 'react';
-import { ActivityIndicator, Image, StyleSheet, Text, TextInput, View } from 'react-native';
+import React, { useState } from 'react';
+import { ActivityIndicator, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { useFontStatus } from '../hooks/useFontStatus';
 
 interface Props {
@@ -10,9 +10,10 @@ interface Props {
     onChangeText?: (text: string) => void;
     secureTextEntry?: boolean;
     color: string
-    iconName?: keyof typeof images;
+    iconName: keyof typeof images;
     isValid?: boolean
 }
+
 
 export const ValueInput: React.FC<Props> = ({
     title,
@@ -28,6 +29,13 @@ export const ValueInput: React.FC<Props> = ({
     if (!isLoaded) {
         return <ActivityIndicator size={'small'} />
     }
+    const [isVisible, setIsVisivle] = useState(true);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(secureTextEntry);
+    const switchState = () => {
+        setIsVisivle(!isVisible);
+        setIsPasswordVisible(!isPasswordVisible);
+    }
+
     return (
         <>
             <View className='justify-center ml-4 mb-2'>
@@ -45,10 +53,15 @@ export const ValueInput: React.FC<Props> = ({
                         placeholderTextColor={color}
                         style={styles.text}
                         value={value}
-                        secureTextEntry={secureTextEntry}
+                        secureTextEntry={isPasswordVisible}
                         onChangeText={onChangeText}>
                     </TextInput>
-                    {iconName && <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image>}
+                    {iconName == "Eyeh" ?
+                        <TouchableOpacity onPress={switchState}>
+                            {isVisible ? <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image> : <Image source={images.Eye} style={styles.icon} className='mr-4'></Image>}
+                        </TouchableOpacity>
+                        :
+                        <Image source={images[iconName]} style={styles.icon} className='mr-4'></Image>}
                 </View>
             </View >
         </>

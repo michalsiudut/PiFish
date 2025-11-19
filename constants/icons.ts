@@ -27,6 +27,9 @@ import WA from "../assets/icons/WA.png"
 import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
 import Default from "../assets/icons/Default.png"
 import Edit from "../assets/icons/edit.png"
+import Eye from "../assets/icons/eye.png"
+import Eyeh from "../assets/icons/eyeh.png"
+
 
 
 export const icons = {
@@ -58,5 +61,7 @@ export const icons = {
     Arrow,
     Info,
     Default,
-    Edit
+    Edit,
+    Eye,
+    Eyeh
 }

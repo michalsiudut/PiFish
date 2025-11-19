@@ -105,7 +105,7 @@ export default function SignUpPage() {
                 </View>
                 {nickValid != "" ? (<ValidationView text={nickValid}></ValidationView>) : (<View></View>)}
                 <View className='mt-2'>
-                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Key' onChangeText={setPassword} isValid={passwordValid == "" ? true : false}></ValueInput>
+                    <ValueInput title='Hasło' placeholder='Wpisz swoje hasło' color='#61897F' secureTextEntry={true} iconName='Eyeh' onChangeText={setPassword} isValid={passwordValid == "" ? true : false}></ValueInput>
                 </View>
                 {passwordValid != "" ? (<ValidationView text={passwordValid}></ValidationView>) : (<View></View>)}
                 <View style={{ height: 13 }}></View>

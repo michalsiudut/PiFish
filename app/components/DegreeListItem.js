@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 
 export const DegreeListItem = ({ item, currentXp }) => {
@@ -14,7 +14,7 @@ export const DegreeListItem = ({ item, currentXp }) => {
     return (
         <>
             {isDone == false ?
-                ((<View className="flex-row rounded-xl justify-between h-14 border-2 border-yellow-400 mb-4 items-center" >
+                ((<View className="flex-row rounded-xl justify-between h-14 border-2 border-yellow-400 bg-yellow-100 mb-4 items-center" >
                     <Text className="ml-4" style={styles.text}>{item.name}</Text>
                     <Text className="mr-4" style={styles.text}>{progressText}</Text>
                 </View >))

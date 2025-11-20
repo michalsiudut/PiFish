@@ -1,13 +1,12 @@
-import React, { useEffect } from 'react'
-import { useRouter } from 'expo-router'
-import { StyleSheet, Text, View, Image, TouchableOpacity, FlatList } from 'react-native'
-import { icons as images } from "@/constants/icons"
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useState } from 'react'
-import { fetchUserSingleData } from '@/services/user_services/fetchUserSingleData'
-import { caluclateDegree } from '../hooks/caluclateDegree'
 import { DEGREES_DATA } from '@/constants/degrees'
+import { icons as images } from "@/constants/icons"
+import { fetchUserSingleData } from '@/services/user_services/fetchUserSingleData'
+import { useRouter } from 'expo-router'
+import React, { useEffect, useState } from 'react'
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { DegreeListItem } from '../components/DegreeListItem'
+import { caluclateDegree } from '../hooks/caluclateDegree'
 
 export default function Profile() {
 
@@ -22,7 +21,6 @@ export default function Profile() {
     const [nextDegree, setNextDegree] = useState("");
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [isDone, setIsDone] = useState(false);
 
     useEffect(() => {
         fetchUserSingleData("Name").then(result => {
@@ -52,12 +50,15 @@ export default function Profile() {
             setDegree(degreeName);
             setNextDegree(secondName);
             setMaxXP(degreeMax);
-            const x = (xp * 100) / maxXP;
-            setPercentage(x);
-            console.log(x);
-            console.log(percentage);
         }
     }, [xp])
+
+    useEffect(() => {
+        const x = (xp * 100) / maxXP;
+        setPercentage(x);
+        console.log(x);
+        console.log(percentage);
+    }, [maxXP])
 
 
     const handleOptionsPress = () => {

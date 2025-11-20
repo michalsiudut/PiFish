@@ -10,12 +10,12 @@ import { doc, setDoc } from 'firebase/firestore';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { auth, db } from '../../services/FirebaseConfig';
+import { DataValidation } from '../components/DataValidation';
 import Loader from '../components/Loader';
 import { ValidationView } from '../components/ValidationView';
 import ValueInput from '../components/ValueInput';
 import { useFontStatus } from '../hooks/useFontStatus';
 import { validationEmail, validationNick, validationPassword } from '../hooks/validations';
-import { DataValidation } from '../components/DataValidation';
 
 export default function SignUpPage() {
 
@@ -73,20 +73,17 @@ export default function SignUpPage() {
                     City: '',
                     Name: '',
                     Nick: nick,
-                    Surname: ''
+                    Surname: '',
+                    xp: 0,
                 })
-
-                console.log("success");
                 setIsLoading(false);
                 router.replace('/(tabs)');
             }
         } catch (error) {
             const firebaseError = error as { code: string; message: string };
-            console.log(error)
             setIsLoading(false);
             switch (firebaseError.code) {
                 case "auth/email-already-in-use":
-                    console.log("success");
                     setCredential("Ten email jest już w użyciu");
                     setEmail("");
                     setIsLoading(false);

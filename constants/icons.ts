@@ -3,6 +3,10 @@ import Bell from "../assets/icons/Bell.png"
 import C from "../assets/icons/C.png"
 import Calendar from "../assets/icons/Calendar.png"
 import City from "../assets/icons/city.png"
+import Default from "../assets/icons/Default.png"
+import Edit from "../assets/icons/edit.png"
+import Eye from "../assets/icons/eye.png"
+import Eyeh from "../assets/icons/eyeh.png"
 import F from "../assets/icons/F.png"
 import GA from "../assets/icons/GA.png"
 import Home from "../assets/icons/Home.png"
@@ -13,6 +17,7 @@ import LR from "../assets/icons/LR.png"
 import Mail from "../assets/icons/mail.png"
 import Name from "../assets/icons/name.png"
 import P from "../assets/icons/P.png"
+import Podium from "../assets/icons/podium.png"
 import Profile from "../assets/icons/Profile.png"
 import ProfileIcon from "../assets/icons/ProfileIcon.png"
 import RN from "../assets/icons/RN.png"
@@ -25,11 +30,6 @@ import T from "../assets/icons/T.png"
 import User from "../assets/icons/user.png"
 import WA from "../assets/icons/WA.png"
 import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
-import Default from "../assets/icons/Default.png"
-import Edit from "../assets/icons/edit.png"
-import Eye from "../assets/icons/eye.png"
-import Eyeh from "../assets/icons/eyeh.png"
-
 
 
 export const icons = {
@@ -63,5 +63,6 @@ export const icons = {
     Default,
     Edit,
     Eye,
-    Eyeh
+    Eyeh,
+    Podium
 }

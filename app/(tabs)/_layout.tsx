@@ -35,27 +35,6 @@ const _layout = () => {
                 tabBarShowLabel: true,
                 tabBarActiveTintColor: "#14b8a6",
                 tabBarInactiveTintColor: "#6B7280",
-                tabBarStyle: {
-                    borderRadius: 50,
-                    borderTopWidth: 0,
-                    borderColor: "#14b8a6",
-                    marginHorizontal: 20,
-                    marginBottom: 36,
-                    height: 58,
-                    overflow: 'hidden',
-                },
-                tabBarItemStyle: {
-                    width: '100%',
-                    height: "100%",
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                },
-                tabBarLabelStyle: {
-                    fontSize: 10,
-                    fontWeight: '600',
-                    marginTop: 2,
-                    textAlign: 'center',
-                }
             }}
         >
             <Tabs.Screen name="index" options={{
@@ -75,6 +54,14 @@ const _layout = () => {
                         focused={focused} />
                 )
             }} />
+            <Tabs.Screen
+                name="Leaderboard"
+                options={{
+                    title: "Leaderboard",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (<TabIcon icon={images.Podium} focused={focused} />)
+                }}
+            ></Tabs.Screen>
             <Tabs.Screen name="Profile" options={{
                 title: "Profil",
                 headerShown: false,
@@ -85,7 +72,7 @@ const _layout = () => {
                 )
             }} />
 
-        </Tabs>
+        </Tabs >
     )
 }
 

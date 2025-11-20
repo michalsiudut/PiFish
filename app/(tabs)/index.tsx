@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import React, { useEffect, useState } from "react";
+import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
-import { auth } from "../../services/FirebaseConfig";
+import { fetchUserSingleData } from "../../services/user_services/fetchUserSingleData";
 import { SwitchButtons } from "../components/buttons/SwitchButtons";
 import { TouchableText } from "../components/buttons/TouchableText";
 import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
 import { useFontStatus } from "../hooks/useFontStatus";
-import getCurrentUserID from "../../services/user_services/getCurrentUserID"
-import { fetchUserSingleData } from "../../services/user_services/fetchUserSingleData"
 
 
 export default function Index() {
@@ -37,15 +35,10 @@ export default function Index() {
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
         <Text className="text-3xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
         <View className="justify-center flex-row items-center">
-          <Image source={images.Bell} style={{
-            width: 30,
-            height: 30,
-          }}
-            className="mr-4">
-          </Image>
-          <Image source={images.ProfileIcon} style={{
-            width: 40,
-            height: 40,
+
+          <Image source={images.Default} className="border-2 rounded-full border-secondary" style={{
+            width: 47,
+            height: 47,
           }}>
           </Image>
         </View>

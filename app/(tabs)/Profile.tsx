@@ -1,6 +1,9 @@
 import { DEGREES_DATA } from '@/constants/degrees'
 import { icons as images } from "@/constants/icons"
+import { auth } from '@/services/FirebaseConfig'
+import { supabase } from '@/services/supabase'
 import { fetchUserSingleData } from '@/services/user_services/fetchUserSingleData'
+import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
@@ -69,19 +72,50 @@ export default function Profile() {
     const handleEditPhotoPress = async () => {
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
-            alert("Musisz zezwolić na dośtep do galerii");
+            alert("Musisz zezwolić na dostęp do galerii");
             return;
         }
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
-            quality: 1
+            quality: 0.6
         })
 
         if (!result.canceled) {
-            setImage(result.assets[0].uri);
-            //console.log({ image });
-            // TODO upload photo to supabase storage and link to 
+            const user = auth.currentUser;
+            const userUID = user?.uid;
+            const imageUri = result.assets[0].uri;
+            setImage(imageUri);
+            try {
+                const fileName = `profile_${userUID}.jpg`;
+
+                // Upload do Supabase
+                const { data: uploadData, error: uploadError } = await supabase.storage
+                    .from('user_photo')
+                    .upload(fileName, imageUri, {
+                        cacheControl: '3600',
+                        upsert: true,
+                    });
+
+                if (uploadError) {
+                    console.error("Błąd uploadu:", uploadError);
+                    return;
+                }
+
+                const publicURL = supabase.storage
+                    .from('user_photo')
+                    .getPublicUrl(fileName).data.publicUrl;
+
+                console.log("Zdjęcie dostępne pod URL:", publicURL);
+
+                // Zapisz URL w bazie
+                await updateUserSingleData('ProfilePhoto', publicURL);
+
+            } catch (err) {
+                console.error("Błąd podczas uploadu:", err);
+            }
         }
+
+
     }
 
     return (

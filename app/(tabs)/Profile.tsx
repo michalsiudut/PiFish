@@ -1,6 +1,7 @@
 import { DEGREES_DATA } from '@/constants/degrees'
 import { icons as images } from "@/constants/icons"
 import { fetchUserSingleData } from '@/services/user_services/fetchUserSingleData'
+import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
@@ -21,6 +22,8 @@ export default function Profile() {
     const [nextDegree, setNextDegree] = useState("");
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
+    const [image, setImage] = useState<string | null>(null);
+    const [profilePhoto, setProfilePhoto] = useState("");
 
     useEffect(() => {
         fetchUserSingleData("Name").then(result => {
@@ -39,6 +42,7 @@ export default function Profile() {
         fetchUserSingleData("Email").then(result => { setEmail(result) });
         fetchUserSingleData("City").then(result => { setCity(result) });
         fetchUserSingleData("xp").then(result => { setXp(result) });
+        fetchUserSingleData("ProfilePhoto").then(result => { setProfilePhoto(result) });
     }, [])
 
     useEffect(() => {
@@ -56,16 +60,28 @@ export default function Profile() {
     useEffect(() => {
         const x = (xp * 100) / maxXP;
         setPercentage(x);
-        console.log(x);
-        console.log(percentage);
     }, [maxXP])
 
 
     const handleOptionsPress = () => {
         router.push("/Screens/Settings")
     }
-    const handleEditPhotoPress = () => {
-        // TODO uploading files logic 
+    const handleEditPhotoPress = async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== "granted") {
+            alert("Musisz zezwolić na dośtep do galerii");
+            return;
+        }
+        const result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1
+        })
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+            //console.log({ image });
+            // TODO upload photo to supabase storage and link to 
+        }
     }
 
     return (
@@ -77,7 +93,7 @@ export default function Profile() {
             </View>
             <View className='mt-10 justify-center items-center'>
                 <View className='relative'>
-                    <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image>
+                    {profilePhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: profilePhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
                     <TouchableOpacity onPress={() => handleEditPhotoPress()} className='absolute bottom-0 right-0 bg-white p-2 rounded-full border-4 border-secondary'>
                         <Image source={images.Edit} style={styles.edit} />
                     </TouchableOpacity>

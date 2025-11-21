@@ -1,9 +1,8 @@
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../FirebaseConfig";
-import { auth } from "../FirebaseConfig";
+import { auth, db } from "../FirebaseConfig";
 
 
-export async function fetchUserSingleData(fieldName: 'Nick' | 'Email' | 'Surname' | "Name" | "City" | "xp") {
+export async function fetchUserSingleData(fieldName: 'Nick' | 'Email' | 'Surname' | "Name" | "City" | "xp" | "ProfilePhoto") {
     const user = auth.currentUser;
     const userID = user?.uid;
 

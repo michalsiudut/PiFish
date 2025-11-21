@@ -12,8 +12,10 @@ import { useFontStatus } from "../hooks/useFontStatus";
 
 export default function Index() {
   const [nick, setNick] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState("");
   useEffect(() => {
     fetchUserSingleData("Nick").then(result => { setNick(result) })
+    fetchUserSingleData("ProfilePhoto").then(result => { setProfilePhoto(result) })
   });
   const percentage = 45
   const value = 144 * (percentage / 100);
@@ -36,7 +38,7 @@ export default function Index() {
         <Text className="text-3xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
         <View className="justify-center flex-row items-center">
 
-          <Image source={images.Default} className="border-2 rounded-full border-secondary" style={{
+          <Image source={{ uri: profilePhoto }} className="border-2 rounded-full border-secondary" style={{
             width: 47,
             height: 47,
           }}>

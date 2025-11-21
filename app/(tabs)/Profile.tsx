@@ -10,6 +10,7 @@ import React, { useEffect, useState } from 'react'
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { DegreeListItem } from '../components/DegreeListItem'
+import Loader from '../components/Loader'
 import { caluclateDegree } from '../hooks/caluclateDegree'
 
 export default function Profile() {
@@ -25,10 +26,10 @@ export default function Profile() {
     const [nextDegree, setNextDegree] = useState("");
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [image, setImage] = useState<string | null>(null);
     const [profilePhoto, setProfilePhoto] = useState("");
-
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
+        setIsLoading(true);
         fetchUserSingleData("Name").then(result => {
             setName(result)
             if ((result == null) || result == "") {
@@ -63,6 +64,7 @@ export default function Profile() {
     useEffect(() => {
         const x = (xp * 100) / maxXP;
         setPercentage(x);
+        setIsLoading(false);
     }, [maxXP])
 
 
@@ -70,28 +72,32 @@ export default function Profile() {
         router.push("/Screens/Settings")
     }
     const handleEditPhotoPress = async () => {
+        setIsLoading(true);
         const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
         if (status !== "granted") {
             alert("Musisz zezwolić na dostęp do galerii");
+            setIsLoading(false);
             return;
         }
         const result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             quality: 0.6
         })
-
         if (!result.canceled) {
             const user = auth.currentUser;
             const userUID = user?.uid;
             const imageUri = result.assets[0].uri;
-            setImage(imageUri);
+
             try {
                 const fileName = `profile_${userUID}.jpg`;
 
-                // Upload do Supabase
+                const response = await fetch(imageUri);
+                const arrayBuffer = await response.arrayBuffer();
+                const blob = new Uint8Array(arrayBuffer);
+
                 const { data: uploadData, error: uploadError } = await supabase.storage
                     .from('user_photo')
-                    .upload(fileName, imageUri, {
+                    .upload(fileName, blob, {
                         cacheControl: '3600',
                         upsert: true,
                     });
@@ -106,15 +112,17 @@ export default function Profile() {
                     .getPublicUrl(fileName).data.publicUrl;
 
                 console.log("Zdjęcie dostępne pod URL:", publicURL);
-
-                // Zapisz URL w bazie
-                await updateUserSingleData('ProfilePhoto', publicURL);
+                setProfilePhoto(`${publicURL}?t=${Date.now()}`);
+                await updateUserSingleData('ProfilePhoto', `${publicURL}?t=${Date.now()}`);
+                alert("Ustawiono zdjęcie profilowe pomyślnie!");
 
             } catch (err) {
                 console.error("Błąd podczas uploadu:", err);
+                setIsLoading(false);
             }
         }
 
+        setIsLoading(false);
 
     }
 
@@ -125,6 +133,7 @@ export default function Profile() {
                     <Image source={images.Settings} style={styles.icons} className='mr-4'></Image>
                 </TouchableOpacity>
             </View>
+            {isLoading == true ? <Loader zIndex={0}></Loader> : <View></View>}
             <View className='mt-10 justify-center items-center'>
                 <View className='relative'>
                     {profilePhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: profilePhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}

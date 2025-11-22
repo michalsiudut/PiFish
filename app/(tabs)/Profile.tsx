@@ -111,7 +111,7 @@ export default function Profile() {
     return (
         <SafeAreaView className='flex-1'>
             <View className='flex-1 justify-center items-end mt-2'>
-                <View className="mr-4 w-11 h-3">
+                <View className="mr-4 w-11 h-8">
                     <TouchableOpacity onPress={handleOptionsPress}>
                         <Image source={images.Settings} style={styles.icons} />
                     </TouchableOpacity>

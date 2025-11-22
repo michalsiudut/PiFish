@@ -23,8 +23,15 @@ export default function Profile() {
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
+    const [isNameEmpty, setIsNameEmpty] = useState(true);
+
+    const [isToastVisible, setIsToastVisible] = useState(false);
+    const [toastMessage, setToastMessage] = useState("");
 
     useEffect(() => {
+        if (name != "Imię") {
+            setIsNameEmpty(false);
+        }
         const degreeInfo = caluclateDegree(xp)
         if (degreeInfo) {
             const degreeName = degreeInfo[0];
@@ -104,9 +111,16 @@ export default function Profile() {
     return (
         <SafeAreaView className='flex-1'>
             <View className='flex-1 justify-center items-end mt-2'>
-                <TouchableOpacity onPress={() => handleOptionsPress()}>
-                    <Image source={images.Settings} style={styles.icons} className='mr-4'></Image>
-                </TouchableOpacity>
+                <View className="mr-4 w-11 h-3">
+                    <TouchableOpacity onPress={handleOptionsPress}>
+                        <Image source={images.Settings} style={styles.icons} />
+                    </TouchableOpacity>
+                    {isNameEmpty == false ? <Image
+                        source={images.Info}
+                        className="absolute bottom-6 right-0 w-6 h-6 rounded-full"
+                        style={{ zIndex: 1, tintColor: "black", backgroundColor: "#EF4545", width: 23, height: 23 }}
+                    /> : <View></View>}
+                </View>
             </View>
             {isLoading == true ? <Loader zIndex={0}></Loader> : <View></View>}
             <View className='mt-10 justify-center items-center'>
@@ -117,7 +131,7 @@ export default function Profile() {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View className='flex justify-center items-center mt-4'>
+            <View className='flex justify-center items-center mt-4 relative'>
                 {name == "" ? <Text style={[styles.text, {
                     fontSize: 25
                 }]}>Imię Nazwisko</Text> : <Text style={[styles.text, {

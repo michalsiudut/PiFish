@@ -2,7 +2,6 @@ import { DEGREES_DATA } from '@/constants/degrees'
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
-import { fetchUserSingleData } from '@/services/user_services/fetchUserSingleData'
 import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
@@ -11,43 +10,19 @@ import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { DegreeListItem } from '../components/DegreeListItem'
 import Loader from '../components/Loader'
+import { useUser } from '../context/UserContext'
 import { caluclateDegree } from '../hooks/caluclateDegree'
 
 export default function Profile() {
 
     const router = useRouter();
-    const [name, setName] = useState("");
-    const [nick, setNick] = useState("");
-    const [surname, setSurname] = useState("");
-    const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
-    const [xp, setXp] = useState(0);
+    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto } = useUser();
+
     const [degree, setDegree] = useState("");
     const [nextDegree, setNextDegree] = useState("");
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
-    const [profilePhoto, setProfilePhoto] = useState("");
     const [isLoading, setIsLoading] = useState(false);
-    useEffect(() => {
-        setIsLoading(true);
-        fetchUserSingleData("Name").then(result => {
-            setName(result)
-            if ((result == null) || result == "") {
-                setName("Imię");
-            }
-        });
-        fetchUserSingleData("Surname").then(result => {
-            setSurname(result)
-            if ((result == null) || result == "") {
-                setSurname("Nazwisko");
-            }
-        });
-        fetchUserSingleData("Nick").then(result => { setNick(result) });
-        fetchUserSingleData("Email").then(result => { setEmail(result) });
-        fetchUserSingleData("City").then(result => { setCity(result) });
-        fetchUserSingleData("xp").then(result => { setXp(result) });
-        fetchUserSingleData("ProfilePhoto").then(result => { setProfilePhoto(result) });
-    }, [])
 
     useEffect(() => {
         const degreeInfo = caluclateDegree(xp)
@@ -143,9 +118,11 @@ export default function Profile() {
                 </View>
             </View>
             <View className='flex justify-center items-center mt-4'>
-                <Text style={[styles.text, {
+                {name == "" ? <Text style={[styles.text, {
                     fontSize: 25
-                }]}>{name} {surname}</Text>
+                }]}>Imię Nazwisko</Text> : <Text style={[styles.text, {
+                    fontSize: 25
+                }]}>{name} {surname}</Text>}
             </View>
             <View className='flex justify-center items-center mt-2'>
                 <Text style={[styles.textShadow, { fontSize: 13 }]}>{nick}</Text>

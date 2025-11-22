@@ -2,6 +2,7 @@ import { Tabs } from 'expo-router';
 import React from 'react';
 import { Image, ImageSourcePropType, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
+import { UserProvider } from '../context/UserContext';
 
 
 type TabIconProps = {
@@ -30,49 +31,51 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, focused }) => {
 
 const _layout = () => {
     return (
-        <Tabs
-            screenOptions={{
-                tabBarShowLabel: true,
-                tabBarActiveTintColor: "#14b8a6",
-                tabBarInactiveTintColor: "#6B7280",
-            }}
-        >
-            <Tabs.Screen name="index" options={{
-                title: "Dom",
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                    <TabIcon icon={images.Home}
-                        focused={focused} />
-                ),
-            }} />
-            <Tabs.Screen name="Calendar" options={{
-                title: "Kalendarz",
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                    <TabIcon
-                        icon={images.Calendar}
-                        focused={focused} />
-                )
-            }} />
-            <Tabs.Screen
-                name="Leaderboard"
-                options={{
-                    title: "Leaderboard",
-                    headerShown: false,
-                    tabBarIcon: ({ focused }) => (<TabIcon icon={images.Podium} focused={focused} />)
+        <UserProvider>
+            <Tabs
+                screenOptions={{
+                    tabBarShowLabel: true,
+                    tabBarActiveTintColor: "#14b8a6",
+                    tabBarInactiveTintColor: "#6B7280",
                 }}
-            ></Tabs.Screen>
-            <Tabs.Screen name="Profile" options={{
-                title: "Profil",
-                headerShown: false,
-                tabBarIcon: ({ focused }) => (
-                    <TabIcon
-                        icon={images.Profile}
-                        focused={focused} />
-                )
-            }} />
+            >
+                <Tabs.Screen name="index" options={{
+                    title: "Dom",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon icon={images.Home}
+                            focused={focused} />
+                    ),
+                }} />
+                <Tabs.Screen name="Calendar" options={{
+                    title: "Kalendarz",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon
+                            icon={images.Calendar}
+                            focused={focused} />
+                    )
+                }} />
+                <Tabs.Screen
+                    name="Leaderboard"
+                    options={{
+                        title: "Leaderboard",
+                        headerShown: false,
+                        tabBarIcon: ({ focused }) => (<TabIcon icon={images.Podium} focused={focused} />)
+                    }}
+                ></Tabs.Screen>
+                <Tabs.Screen name="Profile" options={{
+                    title: "Profil",
+                    headerShown: false,
+                    tabBarIcon: ({ focused }) => (
+                        <TabIcon
+                            icon={images.Profile}
+                            focused={focused} />
+                    )
+                }} />
 
-        </Tabs >
+            </Tabs >
+        </UserProvider>
     )
 }
 

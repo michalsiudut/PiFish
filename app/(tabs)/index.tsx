@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
-import { fetchUserSingleData } from "../../services/user_services/fetchUserSingleData";
 import { SwitchButtons } from "../components/buttons/SwitchButtons";
 import { TouchableText } from "../components/buttons/TouchableText";
 import MathTopicItem from '../components/MathTopicItem';
 import { ProgressBar } from "../components/ProgressBar";
+import { useUser } from "../context/UserContext";
 import { useFontStatus } from "../hooks/useFontStatus";
 
 
 export default function Index() {
-  const [nick, setNick] = useState("");
-  const [profilePhoto, setProfilePhoto] = useState("");
-  useEffect(() => {
-    fetchUserSingleData("Nick").then(result => { setNick(result) })
-    fetchUserSingleData("ProfilePhoto").then(result => { setProfilePhoto(result) })
-  });
+  const { nick, profilePhoto } = useUser();
+
   const percentage = 45
   const value = 144 * (percentage / 100);
 

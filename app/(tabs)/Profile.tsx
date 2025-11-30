@@ -10,6 +10,7 @@ import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { ConfigureUserSettings } from "../components/ConfigureUserSettings"
 import Loader from '../components/Loader'
 import { useUser } from '../context/UserContext'
 import { caluclateDegree } from '../hooks/caluclateDegree'
@@ -148,7 +149,7 @@ export default function Profile() {
                 <View className='flex justify-center items-center mt-2'>
                     <Text style={[styles.textShadow, { fontSize: 13 }]}>{email}</Text>
                 </View>
-                {isUserDataValid == false ? <View></View> : <View></View> /* create component for confiugre your profile */}
+                {isUserDataValid == false ? <ConfigureUserSettings text="Dokończ ustawienia konta" /> : <View></View>}
 
                 <View className='flex-row mt-4 ml-5 justify-between items-center'>
                     <Text style={[styles.text, { fontSize: 20 }]}>Postęp</Text>

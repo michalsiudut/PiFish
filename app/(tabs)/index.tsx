@@ -1,5 +1,6 @@
+import { useRouter } from "expo-router";
 import React from "react";
-import { ActivityIndicator, Image, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
 import { SwitchButtons } from "../components/buttons/SwitchButtons";
@@ -12,6 +13,11 @@ import { useFontStatus } from "../hooks/useFontStatus";
 
 export default function Index() {
   const { nick, profilePhoto } = useUser();
+  const router = useRouter();
+
+  const goToProfile = () => {
+    router.replace('/(tabs)/Profile');
+  }
 
   const percentage = 45
   const value = 144 * (percentage / 100);
@@ -32,14 +38,15 @@ export default function Index() {
     <>
       <View className="mt-20 ml-4 flex-row items-center justify-between pr-4">
         <Text className="text-3xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
-        <View className="justify-center flex-row items-center">
-
-          <Image source={{ uri: profilePhoto }} className="border-2 rounded-full border-secondary" style={{
-            width: 47,
-            height: 47,
-          }}>
-          </Image>
-        </View>
+        <TouchableOpacity onPress={goToProfile}>
+          <View className="justify-center flex-row items-center">
+            <Image source={{ uri: profilePhoto }} className="border-2 rounded-full border-secondary" style={{
+              width: 47,
+              height: 47,
+            }}>
+            </Image>
+          </View>
+        </TouchableOpacity>
       </View >
       <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">
         <View className="flex-row ml-3 mr-3 mt-3">

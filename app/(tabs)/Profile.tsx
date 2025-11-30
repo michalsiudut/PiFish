@@ -1,4 +1,5 @@
 import { DegreeListItem } from "@/app/components/DegreeListItem"
+import validateUserData from "@/app/hooks/validateUserData"
 import { DEGREES_DATA } from "@/constants/degrees"
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
@@ -18,17 +19,22 @@ export default function Profile() {
     const router = useRouter();
     const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto } = useUser();
 
+    const isUserDataValid = validateUserData({
+        name,
+        nick,
+        surname,
+        email,
+        xp,
+        profilePhoto
+    });
+
     const [degree, setDegree] = useState("");
     const [nextDegree, setNextDegree] = useState("");
     const [maxXP, setMaxXP] = useState(0);
     const [percentage, setPercentage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
-    const [isNameEmpty, setIsNameEmpty] = useState(true);
 
     useEffect(() => {
-        if (name != "Imię") {
-            setIsNameEmpty(false);
-        }
         const degreeInfo = caluclateDegree(xp)
         if (degreeInfo) {
             const degreeName = degreeInfo[0];
@@ -112,7 +118,7 @@ export default function Profile() {
                     <TouchableOpacity onPress={handleOptionsPress}>
                         <Image source={images.Settings} style={styles.icons} />
                     </TouchableOpacity>
-                    {isNameEmpty == false ? <Image
+                    {isUserDataValid == false ? <Image
                         source={images.Info}
                         className="absolute bottom-6 right-0 w-6 h-6 rounded-full"
                         style={{ zIndex: 1, tintColor: "black", backgroundColor: "#EF4545", width: 23, height: 23 }}
@@ -142,6 +148,7 @@ export default function Profile() {
                 <View className='flex justify-center items-center mt-2'>
                     <Text style={[styles.textShadow, { fontSize: 13 }]}>{email}</Text>
                 </View>
+                {isUserDataValid == false ? <View></View> : <View></View> /* create component for confiugre your profile */}
 
                 <View className='flex-row mt-4 ml-5 justify-between items-center'>
                     <Text style={[styles.text, { fontSize: 20 }]}>Postęp</Text>

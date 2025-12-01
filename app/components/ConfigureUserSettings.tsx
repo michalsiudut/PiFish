@@ -12,7 +12,7 @@ export const ConfigureUserSettings = ({ text }: Props) => {
     const router = useRouter();
     return (
         <View>
-            <TouchableOpacity onPress={() => { router.push("/Screens/EditProfile") }}>
+            <TouchableOpacity onPress={() => { router.push("/(pages)/EditProfile") }}>
                 <View className='flex-row mt-3'>
                     <View className='bg-[#e29090] w-4 z-900 ml-4 h-16 rounded-tl-lg rounded-bl-lg'></View>
                     <View className='flex-1 h-16 mr-4 bg-[#f3baba] justify-center rounded-tr-lg rounded-br-lg'>

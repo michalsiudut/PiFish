@@ -1,30 +1,37 @@
-import validateUserData from "@/app/hooks/validateUserData"
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
+import { fetchUserData } from "@/services/user_services/fetchUserData"
 import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import { goBack } from "expo-router/build/global-state/routing"
+import { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../context/UserContext'
 
-export default function Leaderboard() {
+export default function EditProfile() {
 
-    const [percentage, setPercentage] = useState(0);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
     const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto } = useUser();
+    useEffect(() => {
+        const unsub = auth.onAuthStateChanged(() => {
+            fetchUserData().then(result => {
+                setProfilePhoto(result?.ProfilePhoto ?? "");
+            });
+        });
 
-    const isUserDataValid = validateUserData({
-        name,
-        nick,
-        surname,
-        email,
-        xp,
-        profilePhoto
-    });
+        return unsub;
+    }, []);
+
+    // to rerender page
+    const [localPhoto, setLocalPhoto] = useState("");
+    useEffect(() => {
+        setLocalPhoto(profilePhoto);
+    }, [profilePhoto]);
+
 
     const handleEditPhotoPress = async () => {
         setIsLoading(true);
@@ -85,13 +92,15 @@ export default function Leaderboard() {
     return (
         <SafeAreaView>
             <View className='justify-between items-center flex-row'>
-                <Image style={styles.icons} source={images.Arrow}></Image>
+                <TouchableOpacity onPress={goBack}>
+                    <Image style={styles.icons} source={images.Arrow} className="ml-4"></Image>
+                </TouchableOpacity>
                 <Text style={styles.text}>Personal info</Text>
                 <View className="mr-[35px]"></View>
             </View>
             <View className='mt-10 justify-center items-center'>
                 <View className='relative'>
-                    {profilePhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: profilePhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
+                    {localPhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: localPhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
                     <TouchableOpacity onPress={() => handleEditPhotoPress()} className='absolute bottom-0 right-0 bg-white p-2 rounded-full border-4 border-secondary'>
                         <Image source={images.Edit} style={styles.edit} />
                     </TouchableOpacity>

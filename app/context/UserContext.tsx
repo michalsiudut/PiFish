@@ -37,7 +37,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setEmail(result?.Email ?? "");
             setName(result?.Name ?? "");
             setSurname(result?.Surname ?? "");
-            setXp(result?.xp ?? "");
+            setXp(result?.xp ?? 0);
         });
     }, []);
 

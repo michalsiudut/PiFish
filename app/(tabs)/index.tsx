@@ -48,12 +48,12 @@ export default function Index() {
           </View>
         </TouchableOpacity>
       </View >
-      <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">
-        <View className="flex-row ml-3 mr-3 mt-3">
-          <SwitchButtons title="Podstawowy" secondTitle="Rozszerzony" />
-        </View>
-      </View >
       <ScrollView>
+        <View className="w-auto h-16 bg-light-400 m-4 rounded-2xl">
+          <View className="flex-row ml-3 mr-3 mt-3">
+            <SwitchButtons title="Podstawowy" secondTitle="Rozszerzony" />
+          </View>
+        </View >
         <View className="ml-4 mb-4">
           <Text style={{ fontFamily: 'Lexend-Bold' }} className="text-2xl text-primary">
             Twój kurs

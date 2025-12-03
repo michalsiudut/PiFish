@@ -7,11 +7,11 @@ import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import PhoneInput from "react-native-phone-number-input"
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { useUser } from '../context/UserContext'
 import EditProfileComponent from "../components/EditProfileComponent"
-import { Keyboard } from "react-native"
+import { useUser } from '../context/UserContext'
 
 export default function EditProfile() {
 
@@ -111,6 +111,7 @@ export default function EditProfile() {
                 </View>
                 <View className="mt-6"></View>
                 <EditProfileComponent title="Imie" placeholderValue="Wprowadź swoje imie" />
+                <PhoneInput></PhoneInput>
             </SafeAreaView>
         </TouchableWithoutFeedback>
     )

@@ -8,7 +8,7 @@ import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
 import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import PhoneInput from "react-native-phone-number-input"
+import PhoneInput from 'react-native-international-phone-number'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import EditProfileComponent from "../components/EditProfileComponent"
 import { useUser } from '../context/UserContext'
@@ -27,6 +27,17 @@ export default function EditProfile() {
 
         return unsub;
     }, []);
+
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [inputValue, setInputValue] = useState('');
+
+    function handleInputValue(phoneNumber: any) {
+        setInputValue(phoneNumber);
+    }
+
+    function handleSelectedCountry(country: any) {
+        setSelectedCountry(country);
+    }
 
     // to rerender page
     const [localPhoto, setLocalPhoto] = useState("");
@@ -111,7 +122,20 @@ export default function EditProfile() {
                 </View>
                 <View className="mt-6"></View>
                 <EditProfileComponent title="Imie" placeholderValue="Wprowadź swoje imie" />
-                <PhoneInput></PhoneInput>
+                <View className='ml-4 mr-4 mt-4'>
+                    <Text style={styles.text2}>Numer Telefonu</Text>
+                </View>
+                <View className="mt-4 ml-4 mr-4">
+                    <PhoneInput
+                        className="mr-5 focus:border-secondary"
+                        value={inputValue}
+                        onChangePhoneNumber={handleInputValue}
+                        selectedCountry={selectedCountry}
+                        onChangeSelectedCountry={handleSelectedCountry}
+                        placeholder="Wpisz swoj numer telefonu"
+                        style={styles.shadowText}
+                    />
+                </View>
             </SafeAreaView>
         </TouchableWithoutFeedback>
     )
@@ -122,6 +146,10 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 25,
         fontFamily: "Lexend-Bold",
+    },
+    text2: {
+        fontFamily: "Lexend-Bold",
+        fontSize: 20,
     },
     icons: {
         tintColor: '#111827',
@@ -137,4 +165,8 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
     },
+    shadowText: {
+        fontFamily: "Lexend-Bold",
+        color: '#61897F',
+    }
 })

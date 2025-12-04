@@ -1,6 +1,5 @@
-import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native'
-import { Keyboard } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, TextInput, View } from 'react-native'
 
 interface Props {
     title: string,
@@ -16,7 +15,7 @@ const EditProfileComponent = ({ title, placeholderValue }: Props) => {
                     <Text style={styles.text}>{title}</Text>
                 </View>
                 <View className='mt-3'>
-                    <TextInput className='border mr-4 ml-4 h-14 p-4 rounded-lg focus:border-secondary focus:border-[3px]' placeholder={placeholderValue} style={[styles.text, { fontSize: 15 }]}></TextInput>
+                    <TextInput className='border border-[#6B7280] mr-4 ml-4 h-14 p-4 rounded-lg focus:border-secondary focus:border-[3px]' placeholder={placeholderValue} style={[styles.text, { fontSize: 15 }]}></TextInput>
                 </View>
             </View>
         </>

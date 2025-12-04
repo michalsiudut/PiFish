@@ -17,7 +17,7 @@ export default function EditProfile() {
 
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
-    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto } = useUser();
+    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber } = useUser();
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(() => {
             fetchUserData().then(result => {
@@ -31,8 +31,10 @@ export default function EditProfile() {
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [inputValue, setInputValue] = useState('');
 
-    function handleInputValue(phoneNumber: any) {
-        setInputValue(phoneNumber);
+    function handleInputValue(number: any) {
+        setPhoneNumber(number);
+        //updateUserSingleData("PhoneNumber", number) // have to got to the logic when button is clicked to save data to not send many calls to db
+        setInputValue(number);
     }
 
     function handleSelectedCountry(country: any) {
@@ -127,7 +129,8 @@ export default function EditProfile() {
                 </View>
                 <View className="mt-4 ml-4 mr-4">
                     <PhoneInput
-                        className="mr-5 focus:border-secondary"
+                        className="mr-5"
+
                         value={inputValue}
                         onChangePhoneNumber={handleInputValue}
                         selectedCountry={selectedCountry}
@@ -168,5 +171,6 @@ const styles = StyleSheet.create({
     shadowText: {
         fontFamily: "Lexend-Bold",
         color: '#61897F',
+        textAlign: "right",
     }
 })

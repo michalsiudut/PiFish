@@ -16,6 +16,8 @@ type UserContextType = {
     setEmail: (v: string) => void;
     xp: number;
     setXp: (v: number) => void;
+    phoneNumber: number;
+    setPhoneNumber: (v: number) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -28,6 +30,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [email, setEmail] = useState("");
     const [city, setCity] = useState("");
     const [xp, setXp] = useState(0);
+    const [phoneNumber, setPhoneNumber] = useState(0);
 
     useEffect(() => {
         fetchUserData().then((result) => {
@@ -38,6 +41,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
             setName(result?.Name ?? "");
             setSurname(result?.Surname ?? "");
             setXp(result?.xp ?? 0);
+            setPhoneNumber(result?.xp ?? 0);
         });
     }, []);
 
@@ -58,6 +62,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setEmail,
                 xp,
                 setXp,
+                phoneNumber,
+                setPhoneNumber
             }}
         >
             {children}

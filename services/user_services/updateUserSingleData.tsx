@@ -1,7 +1,7 @@
 import { doc, updateDoc } from "firebase/firestore";
 import { auth, db } from "../FirebaseConfig";
 
-type UserFields = 'Nick' | 'Email' | 'Surname' | 'Name' | 'City' | 'xp' | 'ProfilePhoto';
+type UserFields = 'Nick' | 'Email' | 'Surname' | 'Name' | 'City' | 'xp' | 'ProfilePhoto' | 'PhoneNumber';
 
 export async function updateUserSingleData<T extends string | number>(
     fieldName: UserFields,

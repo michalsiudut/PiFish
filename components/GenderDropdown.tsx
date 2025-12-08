@@ -22,6 +22,11 @@ export default function GenderDropdown({ value, setValue }: { value: string | nu
                     borderWidth: 1,
 
                 }}
+                listMode="SCROLLVIEW"
+                modalContentContainerStyle={{ backgroundColor: "#fff" }}
+                modalProps={{
+                    animationType: "slide"
+                }}
                 textStyle={{
                     color: '#61897F',
                     fontFamily: "Lexend-Bold",

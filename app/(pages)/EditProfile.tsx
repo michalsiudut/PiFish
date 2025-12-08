@@ -12,8 +12,9 @@ import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
-import { Image, Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import PhoneInput from 'react-native-international-phone-number'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
 
@@ -133,7 +134,13 @@ export default function EditProfile() {
                     <View className="mr-[35px]"></View>
                 </View>
                 {isLoading == true ? <Loader zIndex={30}></Loader> : <View></View>}
-                <ScrollView>
+                <KeyboardAwareScrollView
+                    contentContainerStyle={{ flexGrow: 1 }}
+                    enableOnAndroid={true}
+                    extraScrollHeight={Platform.OS === 'ios' ? 20 : 100}
+                    keyboardOpeningTime={80}
+                    keyboardShouldPersistTaps="handled"
+                >
                     <View className='mt-10 justify-center items-center'>
                         <View className='relative'>
                             {localPhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: localPhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
@@ -167,8 +174,8 @@ export default function EditProfile() {
                     <View>
                         <ValueInputProfile title="Miasto" color='#61897F' placeholder="Wprowadz swoje miasto"></ValueInputProfile>
                     </View>
-                </ScrollView>
-                <ButtonFunction text="Zaaplikuj zmiany" textColor="#111827" onChange={handleSaveChange}></ButtonFunction>
+                    <ButtonFunction text="Zaaplikuj zmiany" textColor="#111827" onChange={handleSaveChange}></ButtonFunction>
+                </KeyboardAwareScrollView>
             </SafeAreaView>
         </TouchableWithoutFeedback>
     )

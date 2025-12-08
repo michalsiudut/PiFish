@@ -1,7 +1,7 @@
 import { icons as images } from '@/constants/icons';
+import { useFontStatus } from '@/hooks/useFontStatus';
 import React, { useState } from 'react';
 import { ActivityIndicator, Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { useFontStatus } from '../hooks/useFontStatus';
 
 interface Props {
     title: string;

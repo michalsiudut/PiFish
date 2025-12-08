@@ -1,8 +1,8 @@
 import React from "react"
-import { View, Text, StyleSheet } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 
-export const DataValidation = ({ credential }: { credential: string }) => {
+const DataValidation = ({ credential }: { credential: string }) => {
 
     return (
 
@@ -27,3 +27,5 @@ const styles = StyleSheet.create({
     },
 
 })
+
+export default DataValidation;

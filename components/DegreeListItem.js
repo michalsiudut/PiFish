@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 
 
-export const DegreeListItem = ({ item, currentXp }) => {
+const DegreeListItem = ({ item, currentXp }) => {
 
     const isActive = currentXp >= item.minXp && currentXp < item.maxXp;
     const isDone = currentXp < item.maxXp;
@@ -33,3 +33,5 @@ const styles = StyleSheet.create({
         fontFamily: "Lexend-Bold",
     }
 })
+
+export default DegreeListItem;

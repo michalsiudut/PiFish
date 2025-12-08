@@ -1,14 +1,14 @@
+import { SwitchButtons } from "@/components/buttons/SwitchButtons";
+import { TouchableText } from "@/components/buttons/TouchableText";
+import MathTopicItem from '@/components/MathTopicItem';
+import { ProgressBar } from "@/components/ProgressBar";
 import { useRouter } from "expo-router";
 import React from "react";
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
-import { SwitchButtons } from "../components/buttons/SwitchButtons";
-import { TouchableText } from "../components/buttons/TouchableText";
-import MathTopicItem from '../components/MathTopicItem';
-import { ProgressBar } from "../components/ProgressBar";
-import { useUser } from "../context/UserContext";
-import { useFontStatus } from "../hooks/useFontStatus";
+import { useUser } from "../../context/UserContext";
+import { useFontStatus } from "../../hooks/useFontStatus";
 
 
 export default function Index() {

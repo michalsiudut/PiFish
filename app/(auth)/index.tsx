@@ -1,19 +1,19 @@
-import Loader from '@/app/components/Loader';
+import Loader from '@/components/Loader';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Image, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
 
+import { ValidationView } from '@/components/ValidationView';
+import { ValueInput } from '@/components/ValueInput';
+import { ButtonFunction } from "@/components/buttons/ButtonFunction";
+import { TouchableText } from '@/components/buttons/TouchableText';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFontStatus } from '../../hooks/useFontStatus';
+import { validationEmail, validationPassword } from '../../hooks/validations';
 import { auth } from '../../services/FirebaseConfig';
-import { ValidationView } from '../components/ValidationView';
-import { ValueInput } from '../components/ValueInput';
-import { ButtonFunction } from "../components/buttons/ButtonFunction";
-import { TouchableText } from '../components/buttons/TouchableText';
-import { useFontStatus } from '../hooks/useFontStatus';
-import { validationEmail, validationPassword } from '../hooks/validations';
 
 export default function index() {
 

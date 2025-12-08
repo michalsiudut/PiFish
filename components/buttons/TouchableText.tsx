@@ -1,6 +1,6 @@
+import { useFontStatus } from '@/hooks/useFontStatus';
 import React from 'react';
 import { ActivityIndicator, Text, TouchableOpacity } from 'react-native';
-import { useFontStatus } from '../../hooks/useFontStatus';
 
 interface Props {
     text: string;

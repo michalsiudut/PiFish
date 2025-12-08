@@ -1,3 +1,4 @@
+import EditProfileComponent from "@/components/EditProfileComponent"
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
@@ -10,8 +11,7 @@ import { useEffect, useState } from 'react'
 import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import PhoneInput from 'react-native-international-phone-number'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import EditProfileComponent from "../components/EditProfileComponent"
-import { useUser } from '../context/UserContext'
+import { useUser } from '../../context/UserContext'
 
 export default function EditProfile() {
 

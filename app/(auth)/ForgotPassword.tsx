@@ -1,4 +1,7 @@
-import { ButtonFunction } from '@/app/components/buttons/ButtonFunction';
+import { ButtonFunction } from '@/components/buttons/ButtonFunction';
+import Loader from '@/components/Loader';
+import { ValidationView } from '@/components/ValidationView';
+import ValueInput from '@/components/ValueInput';
 import { icons } from '@/constants/icons';
 import { auth } from '@/services/FirebaseConfig';
 import { sendPasswordResetEmail } from '@firebase/auth';
@@ -6,11 +9,8 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Loader from '../components/Loader';
-import { ValidationView } from '../components/ValidationView';
-import ValueInput from '../components/ValueInput';
-import { useFontStatus } from '../hooks/useFontStatus';
-import { validationEmail } from '../hooks/validations';
+import { useFontStatus } from '../../hooks/useFontStatus';
+import { validationEmail } from '../../hooks/validations';
 
 export default function ForgotPassword() {
     const router = useRouter();

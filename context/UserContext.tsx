@@ -1,6 +1,7 @@
+import { auth } from '@/services/FirebaseConfig';
 import { fetchUserData } from "@/services/user_services/fetchUserData";
+import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
-
 type UserContextType = {
     nick: string;
     setNick: (v: string) => void;
@@ -33,17 +34,34 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [phoneNumber, setPhoneNumber] = useState(0);
 
     useEffect(() => {
-        fetchUserData().then((result) => {
-            setNick(result?.Nick ?? "");
-            setProfilePhoto(result?.ProfilePhoto ?? "");
-            setCity(result?.City ?? "");
-            setEmail(result?.Email ?? "");
-            setName(result?.Name ?? "");
-            setSurname(result?.Surname ?? "");
-            setXp(result?.xp ?? 0);
-            setPhoneNumber(result?.xp ?? 0);
+        const unsubscribe = onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // użytkownik zalogowany, pobierz dane
+                const result = await fetchUserData();
+                setNick(result?.Nick ?? "");
+                setProfilePhoto(result?.ProfilePhoto ?? "");
+                setCity(result?.City ?? "");
+                setEmail(result?.Email ?? "");
+                setName(result?.Name ?? "");
+                setSurname(result?.Surname ?? "");
+                setXp(result?.xp ?? 0);
+                setPhoneNumber(result?.phoneNumber ?? 0);
+            } else {
+                // użytkownik nie jest zalogowany
+                setNick("");
+                setProfilePhoto("");
+                setCity("");
+                setEmail("");
+                setName("");
+                setSurname("");
+                setXp(0);
+                setPhoneNumber(0);
+            }
         });
+
+        return () => unsubscribe();
     }, []);
+
 
     return (
         <UserContext.Provider

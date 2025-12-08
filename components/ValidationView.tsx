@@ -1,6 +1,6 @@
+import { icons as images } from '@/constants/icons';
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
-import { icons as images } from '../../constants/icons';
 
 interface Props {
     text: string;

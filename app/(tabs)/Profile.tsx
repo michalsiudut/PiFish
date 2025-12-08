@@ -1,15 +1,15 @@
-import { DegreeListItem } from "@/app/components/DegreeListItem"
-import validateUserData from "@/app/hooks/validateUserData"
+import ConfigureUserSettings from "@/components/ConfigureUserSettings"
+import DegreeListItem from "@/components/DegreeListItem"
+import Loader from '@/components/Loader'
 import { DEGREES_DATA } from "@/constants/degrees"
 import { icons as images } from "@/constants/icons"
+import validateUserData from "@/hooks/validateUserData"
 import { useRouter } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { ConfigureUserSettings } from "../components/ConfigureUserSettings"
-import Loader from '../components/Loader'
-import { useUser } from '../context/UserContext'
-import { caluclateDegree } from '../hooks/caluclateDegree'
+import { useUser } from '../../context/UserContext'
+import { caluclateDegree } from '../../hooks/caluclateDegree'
 
 export default function Profile() {
 

@@ -7,7 +7,7 @@ interface Props {
     text: string
 }
 
-export const ConfigureUserSettings = ({ text }: Props) => {
+const ConfigureUserSettings = ({ text }: Props) => {
 
     const router = useRouter();
     return (
@@ -34,3 +34,5 @@ const styles = StyleSheet.create({
     },
 
 })
+
+export default ConfigureUserSettings;

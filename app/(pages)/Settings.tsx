@@ -1,9 +1,9 @@
+import SettingsComponent from '@/components/SettingsComponent'
 import { icons as images } from '@/constants/icons'
 import { goBack } from 'expo-router/build/global-state/routing'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import SettingsComponent from '../components/SettingsComponent'
 
 export default function Settings() {
     return (

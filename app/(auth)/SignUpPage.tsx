@@ -3,19 +3,19 @@ import React, { useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { icons } from '../../constants/icons';
 
-import { ButtonFunction } from '@/app/components/buttons/ButtonFunction';
-import { TouchableText } from '@/app/components/buttons/TouchableText';
+import { ButtonFunction } from '@/components/buttons/ButtonFunction';
+import { TouchableText } from '@/components/buttons/TouchableText';
+import DataValidation from '@/components/DataValidation';
+import Loader from '@/components/Loader';
+import { ValidationView } from '@/components/ValidationView';
+import ValueInput from '@/components/ValueInput';
 import { createUserWithEmailAndPassword } from '@firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFontStatus } from '../../hooks/useFontStatus';
+import { validationEmail, validationNick, validationPassword } from '../../hooks/validations';
 import { auth, db } from '../../services/FirebaseConfig';
-import { DataValidation } from '../components/DataValidation';
-import Loader from '../components/Loader';
-import { ValidationView } from '../components/ValidationView';
-import ValueInput from '../components/ValueInput';
-import { useFontStatus } from '../hooks/useFontStatus';
-import { validationEmail, validationNick, validationPassword } from '../hooks/validations';
 
 export default function SignUpPage() {
 

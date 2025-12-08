@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export default function GenderDropdown() {
+export default function GenderDropdown({ value, setValue }: { value: string | null; setValue: (val: string | null) => void }) {
+
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
     const [items, setItems] = useState([
         { label: 'Mężczyzna', value: 'male' },
         { label: 'Kobieta', value: 'female' },
@@ -30,7 +30,10 @@ export default function GenderDropdown() {
                 value={value}
                 items={items}
                 setOpen={setOpen}
-                setValue={setValue}
+                setValue={(val) => {
+                    const newVal = typeof val === 'function' ? val(value) : val;
+                    setValue(newVal);
+                }}
                 setItems={setItems}
                 placeholder="Wybierz płeć"
                 zIndex={1000}

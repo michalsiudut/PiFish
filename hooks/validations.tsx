@@ -36,5 +36,45 @@ export const validationNick = (nick: string) => {
     }
 
 }
+export const validationName = (name: string) => {
+    const allowedCharsRegex = /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/;
+
+    if (name.length < 3) {
+        return ("Imie musi mieć minuimum 3 znaki");
+    } else if (!allowedCharsRegex.test(name)) {
+        return ("Imie może zawierać tylko litery!");
+    }
+    else {
+        return ('');
+    }
+
+}
+export const validationSurname = (surname: string) => {
+    const allowedCharsRegex = /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/;
+
+    if (surname.length < 3) {
+        return ("Nazwisko musi mieć minuimum 3 znaki");
+    } else if (!allowedCharsRegex.test(surname)) {
+        return ("Nazwisko może zawierać tylko litery!");
+    }
+    else {
+        return ('');
+    }
+
+}
+export const validationCity = (city: string) => {
+    const allowedCharsRegex = /^[A-Za-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]+$/;
+
+    if (city.length < 3) {
+        return ("Nazwisko musi mieć minuimum 3 znaki");
+    } else if (!allowedCharsRegex.test(city)) {
+        return ("Nazwisko może zawierać tylko litery!");
+    }
+    else {
+        return ('');
+    }
+
+}
+
 
 export default validationEmail

@@ -1,10 +1,12 @@
 import ButtonFunction from '@/components/buttons/ButtonFunction'
 import GenderDropdown from '@/components/GenderDropdown'
+import Loader from '@/components/Loader'
 import ValueInputProfile from '@/components/ValueInputProfile'
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
 import { fetchUserData } from "@/services/user_services/fetchUserData"
+import { updateUserData } from '@/services/user_services/updateUserData'
 import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
@@ -16,10 +18,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
 
 export default function EditProfile() {
-
+    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber, gender, setGender } = useUser();
     const [isLoading, setIsLoading] = useState(false);
+    const [selectedCountry, setSelectedCountry] = useState(null);
+    const [localGender, setLocalGender] = useState<string | null>(gender);
+    const [inputValue, setInputValue] = useState('');
     const router = useRouter();
-    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber } = useUser();
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(() => {
             fetchUserData().then(result => {
@@ -30,16 +34,24 @@ export default function EditProfile() {
         return unsub;
     }, []);
 
-    const [selectedCountry, setSelectedCountry] = useState(null);
-    const [inputValue, setInputValue] = useState('');
 
-    const handleSaveChange = () => {
-        //TODO
+    const handleSaveChange = async () => {
+        setIsLoading(true);
+        if (localGender) {
+            setGender(localGender);
+            try {
+                await updateUserData({ Gender: localGender });
+                setIsLoading(false);
+            } catch (err) {
+                console.error("Błąd przy aktualizacji płci:", err);
+                setIsLoading(false);
+            }
+        }
+        //TODO ALERT SAVE SUCCESSFULL
     }
 
     function handleInputValue(number: any) {
         setPhoneNumber(number);
-        //updateUserSingleData("PhoneNumber", number) // have to got to the logic when button is clicked to save data to not send many calls to db
         setInputValue(number);
     }
 
@@ -120,6 +132,7 @@ export default function EditProfile() {
                     <Text style={styles.text}>Personal info</Text>
                     <View className="mr-[35px]"></View>
                 </View>
+                {isLoading == true ? <Loader zIndex={30}></Loader> : <View></View>}
                 <ScrollView>
                     <View className='mt-10 justify-center items-center'>
                         <View className='relative'>
@@ -131,12 +144,12 @@ export default function EditProfile() {
                     </View>
                     <View className="mt-6"></View>
                     <View>
-                        <ValueInputProfile title="Imie" color='#61897F' placeholder="Wprowadz swoje imie"></ValueInputProfile>
+                        <ValueInputProfile title="Imie" color='#61897F' placeholder="Wprowadz swoje imie" value={name}></ValueInputProfile>
                     </View>
                     <View>
-                        <ValueInputProfile title="Nazwisko" color='#61897F' placeholder="Wprowadz swoje nazwisko"></ValueInputProfile>
+                        <ValueInputProfile title="Nazwisko" color='#61897F' placeholder="Wprowadz swoje nazwisko" value={surname}></ValueInputProfile>
                     </View>
-                    <GenderDropdown></GenderDropdown>
+                    <GenderDropdown value={localGender} setValue={setLocalGender} />
                     <View className='ml-4 mr-4'>
                         <Text style={styles.text2} className='text-xl'>Numer Telefonu</Text>
                     </View>

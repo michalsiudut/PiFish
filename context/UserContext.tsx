@@ -19,6 +19,8 @@ type UserContextType = {
     setXp: (v: number) => void;
     phoneNumber: number;
     setPhoneNumber: (v: number) => void;
+    gender: string;
+    setGender: (v: string) => void;
 };
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
@@ -32,6 +34,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [city, setCity] = useState("");
     const [xp, setXp] = useState(0);
     const [phoneNumber, setPhoneNumber] = useState(0);
+    const [gender, setGender] = useState("");
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -46,6 +49,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setSurname(result?.Surname ?? "");
                 setXp(result?.xp ?? 0);
                 setPhoneNumber(result?.phoneNumber ?? 0);
+                setGender(result?.gender ?? 0);
             } else {
                 // użytkownik nie jest zalogowany
                 setNick("");
@@ -56,6 +60,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setSurname("");
                 setXp(0);
                 setPhoneNumber(0);
+                setGender("");
             }
         });
 
@@ -81,7 +86,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 xp,
                 setXp,
                 phoneNumber,
-                setPhoneNumber
+                setPhoneNumber,
+                gender,
+                setGender
             }}
         >
             {children}

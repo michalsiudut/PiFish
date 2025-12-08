@@ -61,11 +61,6 @@ export default function Profile() {
                     <TouchableOpacity onPress={handleOptionsPress}>
                         <Image source={images.Settings} style={styles.icons} />
                     </TouchableOpacity>
-                    {isUserDataValid == false ? <Image
-                        source={images.Info}
-                        className="absolute bottom-6 right-0 w-6 h-6 rounded-full"
-                        style={{ zIndex: 1, tintColor: "black", backgroundColor: "#EF4545", width: 23, height: 23 }}
-                    /> : <View></View>}
                 </View>
             </View>
             {isLoading == true ? <Loader zIndex={0}></Loader> : <View></View>}
@@ -89,7 +84,6 @@ export default function Profile() {
                     <Text style={[styles.textShadow, { fontSize: 13 }]}>{email}</Text>
                 </View>
                 {isUserDataValid == false ? <ConfigureUserSettings text="Dokończ ustawienia konta" /> : <View></View>}
-
                 <View className='flex-row mt-4 ml-5 justify-between items-center'>
                     <Text style={[styles.text, { fontSize: 20 }]}>Postęp</Text>
                     <Text style={[styles.text, { color: '#14b8a6' }]} className='mr-4'>{xp} XP</Text>
@@ -118,7 +112,6 @@ export default function Profile() {
                     ))}
                 </View>
             </ScrollView>
-
         </SafeAreaView >
     )
 }

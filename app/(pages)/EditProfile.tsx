@@ -1,4 +1,6 @@
-import EditProfileComponent from "@/components/EditProfileComponent"
+import ButtonFunction from '@/components/buttons/ButtonFunction'
+import GenderDropdown from '@/components/GenderDropdown'
+import ValueInputProfile from '@/components/ValueInputProfile'
 import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
@@ -8,7 +10,7 @@ import * as ImagePicker from "expo-image-picker"
 import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
-import { Image, Keyboard, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
+import { Image, Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
 import PhoneInput from 'react-native-international-phone-number'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
@@ -30,6 +32,10 @@ export default function EditProfile() {
 
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [inputValue, setInputValue] = useState('');
+
+    const handleSaveChange = () => {
+        //TODO
+    }
 
     function handleInputValue(number: any) {
         setPhoneNumber(number);
@@ -114,31 +120,42 @@ export default function EditProfile() {
                     <Text style={styles.text}>Personal info</Text>
                     <View className="mr-[35px]"></View>
                 </View>
-                <View className='mt-10 justify-center items-center'>
-                    <View className='relative'>
-                        {localPhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: localPhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
-                        <TouchableOpacity onPress={() => handleEditPhotoPress()} className='absolute bottom-0 right-0 bg-white p-2 rounded-full border-4 border-secondary'>
-                            <Image source={images.Edit} style={styles.edit} />
-                        </TouchableOpacity>
+                <ScrollView>
+                    <View className='mt-10 justify-center items-center'>
+                        <View className='relative'>
+                            {localPhoto == "" ? <Image source={images.Default} style={styles.image} className='border-4 rounded-full border-secondary '></Image> : <Image source={{ uri: localPhoto }} style={styles.image} className='border-4 rounded-full border-secondary '></Image>}
+                            <TouchableOpacity onPress={() => handleEditPhotoPress()} className='absolute bottom-0 right-0 bg-white p-2 rounded-full border-4 border-secondary'>
+                                <Image source={images.Edit} style={styles.edit} />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-                <View className="mt-6"></View>
-                <EditProfileComponent title="Imie" placeholderValue="Wprowadź swoje imie" />
-                <View className='ml-4 mr-4 mt-4'>
-                    <Text style={styles.text2}>Numer Telefonu</Text>
-                </View>
-                <View className="mt-4 ml-4 mr-4">
-                    <PhoneInput
-                        className="mr-5"
-
-                        value={inputValue}
-                        onChangePhoneNumber={handleInputValue}
-                        selectedCountry={selectedCountry}
-                        onChangeSelectedCountry={handleSelectedCountry}
-                        placeholder="Wpisz swoj numer telefonu"
-                        style={styles.shadowText}
-                    />
-                </View>
+                    <View className="mt-6"></View>
+                    <View>
+                        <ValueInputProfile title="Imie" color='#61897F' placeholder="Wprowadz swoje imie"></ValueInputProfile>
+                    </View>
+                    <View>
+                        <ValueInputProfile title="Nazwisko" color='#61897F' placeholder="Wprowadz swoje nazwisko"></ValueInputProfile>
+                    </View>
+                    <GenderDropdown></GenderDropdown>
+                    <View className='ml-4 mr-4'>
+                        <Text style={styles.text2} className='text-xl'>Numer Telefonu</Text>
+                    </View>
+                    <View className="mt-2 ml-4 mb-2 mr-4">
+                        <PhoneInput
+                            className="p-4"
+                            value={inputValue}
+                            onChangePhoneNumber={handleInputValue}
+                            selectedCountry={selectedCountry}
+                            onChangeSelectedCountry={handleSelectedCountry}
+                            placeholder="Wpisz swoj numer telefonu"
+                            style={styles.shadowText}
+                        />
+                    </View>
+                    <View>
+                        <ValueInputProfile title="Miasto" color='#61897F' placeholder="Wprowadz swoje miasto"></ValueInputProfile>
+                    </View>
+                </ScrollView>
+                <ButtonFunction text="Zaaplikuj zmiany" textColor="#111827" onChange={handleSaveChange}></ButtonFunction>
             </SafeAreaView>
         </TouchableWithoutFeedback>
     )
@@ -152,7 +169,6 @@ const styles = StyleSheet.create({
     },
     text2: {
         fontFamily: "Lexend-Bold",
-        fontSize: 20,
     },
     icons: {
         tintColor: '#111827',
@@ -171,6 +187,6 @@ const styles = StyleSheet.create({
     shadowText: {
         fontFamily: "Lexend-Bold",
         color: '#61897F',
-        textAlign: "right",
+        textAlign: "left",
     }
 })

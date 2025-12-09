@@ -11,8 +11,8 @@ type UserContextType = {
     setName: (v: string) => void;
     surname: string;
     setSurname: (v: string) => void;
-    city: string;
-    setCity: (v: string) => void;
+    country: string;
+    setCountry: (v: string) => void;
     email: string;
     setEmail: (v: string) => void;
     xp: number;
@@ -31,7 +31,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
-    const [city, setCity] = useState("");
+    const [country, setCountry] = useState("");
     const [xp, setXp] = useState(0);
     const [phoneNumber, setPhoneNumber] = useState(0);
     const [gender, setGender] = useState("");
@@ -43,7 +43,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 const result = await fetchUserData();
                 setNick(result?.Nick ?? "");
                 setProfilePhoto(result?.ProfilePhoto ?? "");
-                setCity(result?.City ?? "");
+                setCountry(result?.City ?? "");
                 setEmail(result?.Email ?? "");
                 setName(result?.Name ?? "");
                 setSurname(result?.Surname ?? "");
@@ -54,7 +54,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 // użytkownik nie jest zalogowany
                 setNick("");
                 setProfilePhoto("");
-                setCity("");
+                setCountry("");
                 setEmail("");
                 setName("");
                 setSurname("");
@@ -79,8 +79,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setName,
                 surname,
                 setSurname,
-                city,
-                setCity,
+                country,
+                setCountry,
                 email,
                 setEmail,
                 xp,

@@ -19,7 +19,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
 
 export default function EditProfile() {
-    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber, gender, setGender } = useUser();
+    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber, gender, setGender, country, setCountry } = useUser();
     const [isLoading, setIsLoading] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
     const [localGender, setLocalGender] = useState<string | null>(gender);

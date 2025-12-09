@@ -9,7 +9,6 @@ import { fetchUserData } from "@/services/user_services/fetchUserData"
 import { updateUserData } from '@/services/user_services/updateUserData'
 import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
-import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
 import { Image, Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
@@ -19,12 +18,16 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
 
 export default function EditProfile() {
-    const { name, nick, surname, email, xp, profilePhoto, setProfilePhoto, setPhoneNumber, gender, setGender, country, setCountry } = useUser();
+    const { name, setName, surname, setSurname, profilePhoto, setProfilePhoto, setPhoneNumber, gender, setGender, country, setCountry } = useUser();
     const [isLoading, setIsLoading] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState(null);
-    const [localGender, setLocalGender] = useState<string | null>(gender);
+    //
+    const [localCountry, setLocalCountry] = useState(country);
+    const [localGender, setLocalGender] = useState<string>(gender);
+    const [localName, setLocalName] = useState(name);
+    const [localSurname, setLocalSurname] = useState(surname);
+    //
     const [inputValue, setInputValue] = useState('');
-    const router = useRouter();
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(() => {
             fetchUserData().then(result => {
@@ -42,12 +45,39 @@ export default function EditProfile() {
             setGender(localGender);
             try {
                 await updateUserData({ Gender: localGender });
-                setIsLoading(false);
             } catch (err) {
                 console.error("Błąd przy aktualizacji płci:", err);
                 setIsLoading(false);
             }
         }
+        if (localCountry) {
+            setCountry(localCountry);
+            try {
+                await updateUserData({ Country: localCountry })
+            } catch (err) {
+                console.log("Blad przy aktualziacji kraju", err);
+                setIsLoading(false);
+            }
+        }
+
+        if (localName) {
+            setName(localName);
+            try {
+                await updateUserData({ Name: localName });
+            } catch (err) {
+                console.log("eError przy name: ", err);
+            }
+        }
+        if (localSurname) {
+            setSurname(localSurname);
+            try {
+                await updateUserData({ Surname: localSurname });
+            } catch (err) {
+                console.log("eError przy surname: ", err);
+            }
+        }
+        //TODO PHONE NUMBER update
+        setIsLoading(false);
         //TODO ALERT SAVE SUCCESSFULL
     }
 
@@ -151,10 +181,10 @@ export default function EditProfile() {
                     </View>
                     <View className="mt-6"></View>
                     <View>
-                        <ValueInputProfile title="Imie" color='#61897F' placeholder="Wprowadz swoje imie" value={name}></ValueInputProfile>
+                        <ValueInputProfile title="Imie" color='#61897F' placeholder="Wprowadz swoje imie" value={localName} onChangeText={setLocalName}></ValueInputProfile>
                     </View>
                     <View>
-                        <ValueInputProfile title="Nazwisko" color='#61897F' placeholder="Wprowadz swoje nazwisko" value={surname}></ValueInputProfile>
+                        <ValueInputProfile title="Nazwisko" color='#61897F' placeholder="Wprowadz swoje nazwisko" value={localSurname} onChangeText={setLocalSurname}></ValueInputProfile>
                     </View>
                     <GenderDropdown value={localGender} setValue={setLocalGender} />
                     <View className='ml-4 mr-4'>
@@ -172,7 +202,7 @@ export default function EditProfile() {
                         />
                     </View>
                     <View>
-                        <ValueInputProfile title="Miasto" color='#61897F' placeholder="Wprowadz swoje miasto"></ValueInputProfile>
+                        <ValueInputProfile title="Kraj" color='#61897F' placeholder="Wprowadz swoj kraj" value={localCountry} onChangeText={setLocalCountry}></ValueInputProfile>
                     </View>
                     <ButtonFunction text="Zaaplikuj zmiany" textColor="#111827" onChange={handleSaveChange}></ButtonFunction>
                 </KeyboardAwareScrollView>

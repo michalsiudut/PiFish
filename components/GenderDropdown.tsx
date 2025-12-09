@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-export default function GenderDropdown({ value, setValue }: { value: string | null; setValue: (val: string | null) => void }) {
+export default function GenderDropdown({ value, setValue }: { value: string | null; setValue: (val: string) => void }) {
 
     const [open, setOpen] = useState(false);
     const [items, setItems] = useState([

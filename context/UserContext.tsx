@@ -43,7 +43,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 const result = await fetchUserData();
                 setNick(result?.Nick ?? "");
                 setProfilePhoto(result?.ProfilePhoto ?? "");
-                setCountry(result?.City ?? "");
+                setCountry(result?.Country ?? "");
                 setEmail(result?.Email ?? "");
                 setName(result?.Name ?? "");
                 setSurname(result?.Surname ?? "");

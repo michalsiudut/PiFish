@@ -6,7 +6,7 @@ export type UserData = {
     Email: string;
     Surname: string;
     Name: string;
-    City: string;
+    Country: string;
     xp: number;
     ProfilePhoto: string;
     PhoneNumber: number;

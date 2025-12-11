@@ -200,7 +200,7 @@ export default function EditProfile() {
                         <Text style={styles.text2} className='text-xl'>Numer Telefonu</Text>
                     </View>
 
-                    <View className="mt-2 ml-4 mb-2 mr-4">
+                    <View className="mt-2 ml-4 mb-2 mr-4 h-16 rounded-full ">
                         <PhoneInput
                             value={localPhoneNumber}
                             defaultCode='PL'
@@ -217,6 +217,14 @@ export default function EditProfile() {
                                 fontFamily: 'Lexend-Regular',
                                 fontSize: 16,
                                 color: '#2c3e50',
+                            }}
+                            codeTextStyle={{
+                                fontSize: 16,
+                                marginBottom: 0,
+                                padding: 0,
+                                color: '#2c3e50',
+                                justifyContent: "center",
+                                fontFamily: 'Lexend-Regular',
                             }}
                         />
                     </View>

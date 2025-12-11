@@ -9,7 +9,7 @@ export type UserData = {
     Country: string;
     xp: number;
     ProfilePhoto: string;
-    PhoneNumber: number;
+    PhoneNumber: string;
     Gender: string;
 };
 

@@ -17,8 +17,8 @@ type UserContextType = {
     setEmail: (v: string) => void;
     xp: number;
     setXp: (v: number) => void;
-    phoneNumber: number;
-    setPhoneNumber: (v: number) => void;
+    phoneNumber: string;
+    setPhoneNumber: (v: string) => void;
     gender: string;
     setGender: (v: string) => void;
 };
@@ -33,7 +33,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [email, setEmail] = useState("");
     const [country, setCountry] = useState("");
     const [xp, setXp] = useState(0);
-    const [phoneNumber, setPhoneNumber] = useState(0);
+    const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
 
     useEffect(() => {
@@ -48,8 +48,8 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setName(result?.Name ?? "");
                 setSurname(result?.Surname ?? "");
                 setXp(result?.xp ?? 0);
-                setPhoneNumber(result?.phoneNumber ?? 0);
-                setGender(result?.gender ?? 0);
+                setPhoneNumber(result?.PhoneNumber ?? "");
+                setGender(result?.Gender ?? 0);
             } else {
                 // użytkownik nie jest zalogowany
                 setNick("");
@@ -59,7 +59,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setName("");
                 setSurname("");
                 setXp(0);
-                setPhoneNumber(0);
+                setPhoneNumber("");
                 setGender("");
             }
         });

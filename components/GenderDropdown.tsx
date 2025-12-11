@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
@@ -28,7 +28,7 @@ export default function GenderDropdown({ value, setValue }: { value: string | nu
                     animationType: "slide"
                 }}
                 textStyle={{
-                    color: '#61897F',
+                    color: '#111827',
                     fontFamily: "Lexend-Bold",
                 }}
                 open={open}

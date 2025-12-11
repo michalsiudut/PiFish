@@ -12,8 +12,8 @@ import * as ImagePicker from "expo-image-picker"
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
 import { Image, Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
-import PhoneInput from 'react-native-international-phone-number'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import PhoneInput from 'react-native-phone-number-input'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
 
@@ -28,14 +28,12 @@ export default function EditProfile() {
     } = useUser();
 
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedCountry, setSelectedCountry] = useState<any>(null);
 
     const [localCountry, setLocalCountry] = useState(country);
     const [localGender, setLocalGender] = useState<string>(gender);
     const [localName, setLocalName] = useState(name);
     const [localSurname, setLocalSurname] = useState(surname);
-
-    const [inputValue, setInputValue] = useState<string>("");
+    const [localPhoneNumber, setLocalPhoneNumber] = useState(phoneNumber);
 
     useEffect(() => {
         const unsub = auth.onAuthStateChanged(() => {
@@ -47,32 +45,10 @@ export default function EditProfile() {
     }, []);
 
     useEffect(() => {
-        if (!phoneNumber) {
-            setInputValue("");
-            return;
-        }
 
-        setInputValue(phoneNumber);
+        setLocalPhoneNumber(phoneNumber);
 
-        const callingCodeMatch = phoneNumber.match(/^\+(\d{1,4})/);
-        if (callingCodeMatch) {
-            const code = callingCodeMatch[0];
-            setSelectedCountry({
-                callingCode: code,
-                cca2: "",
-                flag: "",
-                name: ""
-            });
-        }
     }, [phoneNumber]);
-
-    function handleInputValue(value: any) {
-        setInputValue(value);
-    }
-
-    function handleSelectedCountry(country: any) {
-        setSelectedCountry(country);
-    }
 
     const [localPhoto, setLocalPhoto] = useState("");
     useEffect(() => {
@@ -155,9 +131,9 @@ export default function EditProfile() {
             await updateUserData({ Surname: localSurname });
         }
 
-        if (inputValue) {
-            setPhoneNumber(inputValue);
-            await updateUserData({ PhoneNumber: inputValue });
+        if (localPhoneNumber) {
+            setPhoneNumber(localPhoneNumber);
+            await updateUserData({ PhoneNumber: localPhoneNumber });
         }
 
         setIsLoading(false);
@@ -226,13 +202,22 @@ export default function EditProfile() {
 
                     <View className="mt-2 ml-4 mb-2 mr-4">
                         <PhoneInput
-                            className='p-4'
-                            value={inputValue}
-                            onChangePhoneNumber={handleInputValue}
-                            selectedCountry={selectedCountry}
-                            onChangeSelectedCountry={handleSelectedCountry}
+                            value={localPhoneNumber}
+                            defaultCode='PL'
+                            onChangeText={setLocalPhoneNumber}
                             placeholder="Wpisz swoj numer telefonu"
-                            style={styles.shadowText}
+                            containerStyle={{
+                                width: '100%',
+                                borderColor: '#6B7280',
+                                borderWidth: 1,
+                                borderRadius: 8,
+                                backgroundColor: '#ffffff',
+                            }}
+                            textInputStyle={{
+                                fontFamily: 'Lexend-Regular',
+                                fontSize: 16,
+                                color: '#2c3e50',
+                            }}
                         />
                     </View>
 

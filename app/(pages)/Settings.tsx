@@ -11,14 +11,14 @@ export default function Settings() {
 
     return (
         <SafeAreaView className='flex-1 bg-[#d9d9d9]'>
-            <View className='flex-row justify-between items-center'>
+            <View className='flex-row justify-between items-center mb-8'>
                 <TouchableOpacity onPress={goBack}>
                     <Image source={images.Arrow} style={styles.icons} className='ml-4'></Image>
                 </TouchableOpacity>
                 <Text style={styles.text}>Ustawienia</Text>
                 <View className='h-5 w-[40px]'></View>
             </View>
-            <SettingsView onPress={handlePress} title='Język'></SettingsView>
+            <SettingsView onPress={handlePress} title='Język' withTitle={true} text='Wybór języka'></SettingsView>
         </SafeAreaView>
     )
 }

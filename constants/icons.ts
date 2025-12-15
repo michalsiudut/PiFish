@@ -4,6 +4,7 @@ import C from "../assets/icons/C.png"
 import Calendar from "../assets/icons/Calendar.png"
 import City from "../assets/icons/city.png"
 import Default from "../assets/icons/Default.png"
+import Down from "../assets/icons/Down.png"
 import Edit from "../assets/icons/edit.png"
 import Eye from "../assets/icons/eye.png"
 import Eyeh from "../assets/icons/eyeh.png"
@@ -66,4 +67,5 @@ export const icons = {
     Eyeh,
     Podium,
     LanguageIcon,
+    Down,
 }

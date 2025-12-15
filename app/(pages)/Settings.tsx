@@ -1,4 +1,4 @@
-import SettingsView from '@/components/SettingsView'
+import SettingsLanguageView from '@/components/Settings/SettingsLanguageView'
 import { icons as images } from '@/constants/icons'
 import { goBack } from 'expo-router/build/global-state/routing'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
@@ -18,7 +18,7 @@ export default function Settings() {
                 <Text style={styles.text}>Ustawienia</Text>
                 <View className='h-5 w-[40px]'></View>
             </View>
-            <SettingsView onPress={handlePress} title='Język' withTitle={true} text='Wybór języka'></SettingsView>
+            <SettingsLanguageView title='Język' text='Wybór języka'></SettingsLanguageView>
         </SafeAreaView>
     )
 }

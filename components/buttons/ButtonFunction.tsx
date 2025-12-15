@@ -6,9 +6,10 @@ interface Props {
     text: string;
     onChange: () => void;
     textColor: string;
+    fullyRounded?: boolean;
 }
 
-export const ButtonFunction: React.FC<Props> = ({ text, onChange, textColor }) => {
+export const ButtonFunction: React.FC<Props> = ({ text, onChange, textColor, fullyRounded }) => {
 
 
     const { fontsLoaded } = useFontStatus();
@@ -20,7 +21,13 @@ export const ButtonFunction: React.FC<Props> = ({ text, onChange, textColor }) =
 
     return (
         <>
-            <View className='ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center mb-5'>
+            <View
+                className={
+                    fullyRounded
+                        ? 'ml-4 mr-4 bg-secondary rounded-full h-12 mt-5 w-auto justify-center mb-5'
+                        : 'ml-4 mr-4 bg-secondary rounded-xl h-12 mt-5 w-auto justify-center mb-5'
+                }
+            >
                 <TouchableOpacity onPress={onChange} className='items-center justify-center'>
                     <Text style={{ fontFamily: "Lexend-Bold", color: textColor }}>
                         {text}

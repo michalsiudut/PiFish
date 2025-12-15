@@ -6,9 +6,9 @@ import { icons as images } from "@/constants/icons"
 import { auth } from '@/services/FirebaseConfig'
 import { supabase } from '@/services/supabase'
 import { fetchUserData } from "@/services/user_services/fetchUserData"
-import { updateUserData } from '@/services/user_services/updateUserData'
 import { updateUserSingleData } from '@/services/user_services/updateUserSingleData'
 import * as ImagePicker from "expo-image-picker"
+import { useRouter } from 'expo-router'
 import { goBack } from "expo-router/build/global-state/routing"
 import { useEffect, useState } from 'react'
 import { Image, Keyboard, Platform, StyleSheet, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native'
@@ -27,8 +27,9 @@ export default function EditProfile() {
         country, setCountry
     } = useUser();
 
-    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
 
+    const [isLoading, setIsLoading] = useState(false);
     const [localCountry, setLocalCountry] = useState(country);
     const [localGender, setLocalGender] = useState<string>(gender);
     const [localName, setLocalName] = useState(name);
@@ -113,30 +114,31 @@ export default function EditProfile() {
 
         if (localGender) {
             setGender(localGender);
-            await updateUserData({ Gender: localGender });
+            //await updateUserData({ Gender: localGender });
         }
 
         if (localCountry) {
             setCountry(localCountry);
-            await updateUserData({ Country: localCountry });
+            //await updateUserData({ Country: localCountry });
         }
 
         if (localName) {
             setName(localName);
-            await updateUserData({ Name: localName });
+            //  await updateUserData({ Name: localName });
         }
 
         if (localSurname) {
             setSurname(localSurname);
-            await updateUserData({ Surname: localSurname });
+            //await updateUserData({ Surname: localSurname });
         }
 
         if (localPhoneNumber) {
             setPhoneNumber(localPhoneNumber);
-            await updateUserData({ PhoneNumber: localPhoneNumber });
+            //await updateUserData({ PhoneNumber: localPhoneNumber });
         }
 
         setIsLoading(false);
+        router.push("/(pages)/Success");
     };
 
     return (
@@ -241,6 +243,7 @@ export default function EditProfile() {
                         text="Zaaplikuj zmiany"
                         textColor="#111827"
                         onChange={handleSaveChange}
+                        fullyRounded={false}
                     />
                 </KeyboardAwareScrollView>
             </SafeAreaView>

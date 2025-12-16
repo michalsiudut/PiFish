@@ -1,6 +1,6 @@
 import Loader from '@/components/Loader';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Image, Keyboard, StyleSheet, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
 
@@ -148,7 +148,7 @@ export default function index() {
                     <TouchableText text='Zapomniałeś hasła?' color='#14b8a6' fontSize={13} onChange={forgotPassword}></TouchableText>
                 </View>
                 <ButtonFunction text='Zaloguj się' onChange={signIn} textColor='primary' />
-                <View className='mt-7 justify-center items-center flex-row gap-1'>
+                <View className='mt-3 justify-center items-center flex-row gap-1'>
                     <Text style={styles.textShadow}>
                         Nie masz konta?
                     </Text>

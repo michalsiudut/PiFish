@@ -2,10 +2,16 @@ import { SettingsCheckbox } from '@/components/Settings/SettingsCheckbox'
 import SettingsLanguageView from '@/components/Settings/SettingsLanguageView'
 import { icons as images } from '@/constants/icons'
 import { goBack } from 'expo-router/build/global-state/routing'
+import { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Settings() {
+
+    const [localNotifications, setLocalNotifications] = useState(false);
+    const [localReminders, setLocalReminders] = useState(false);
+    const [localTasks, setLocalTasks] = useState(false);
+
     return (
         <SafeAreaView className='flex-1 bg-[#d9d9d9]'>
             <View className='flex-row justify-between items-center mb-8'>
@@ -17,7 +23,9 @@ export default function Settings() {
             </View>
             <SettingsLanguageView title='Język' text='Wybór języka'></SettingsLanguageView>
             <Text style={styles.mainText} className='ml-4 mr-4 mt-6'>Powiadomienia</Text>
-            <SettingsCheckbox text="Wszystkie powiadomienia" iconName='Bell'></SettingsCheckbox>
+            <SettingsCheckbox text="Wszystkie powiadomienia" iconName='Bell' value={localNotifications} setValue={setLocalNotifications}></SettingsCheckbox>
+            <SettingsCheckbox text="Przypomnienia o nauce" iconName='Education' value={localReminders} setValue={setLocalReminders}></SettingsCheckbox>
+            <SettingsCheckbox text="Nowe zadania" iconName='Notes' value={localTasks} setValue={setLocalTasks}></SettingsCheckbox>
         </SafeAreaView>
     )
 }

@@ -6,6 +6,7 @@ import City from "../assets/icons/city.png"
 import Default from "../assets/icons/Default.png"
 import Down from "../assets/icons/Down.png"
 import Edit from "../assets/icons/edit.png"
+import Education from "../assets/icons/Education.png"
 import Eye from "../assets/icons/eye.png"
 import Eyeh from "../assets/icons/eyeh.png"
 import F from "../assets/icons/F.png"
@@ -18,6 +19,7 @@ import Lock from "../assets/icons/lock.png"
 import LR from "../assets/icons/LR.png"
 import Mail from "../assets/icons/mail.png"
 import Name from "../assets/icons/name.png"
+import Notes from "../assets/icons/notes.png"
 import P from "../assets/icons/P.png"
 import Podium from "../assets/icons/podium.png"
 import Profile from "../assets/icons/Profile.png"
@@ -32,7 +34,6 @@ import T from "../assets/icons/T.png"
 import User from "../assets/icons/user.png"
 import WA from "../assets/icons/WA.png"
 import WelcomeIcon from "../assets/icons/WelcomeIcon.png"
-
 export const icons = {
     Home,
     Profile,
@@ -68,4 +69,6 @@ export const icons = {
     Podium,
     LanguageIcon,
     Down,
+    Education,
+    Notes
 }

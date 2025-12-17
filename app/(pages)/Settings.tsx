@@ -1,3 +1,4 @@
+import { SettingsCheckbox } from '@/components/Settings/SettingsCheckbox'
 import SettingsLanguageView from '@/components/Settings/SettingsLanguageView'
 import { icons as images } from '@/constants/icons'
 import { goBack } from 'expo-router/build/global-state/routing'
@@ -5,10 +6,6 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Settings() {
-    const handlePress = () => {
-        console.log("dziala")
-    }
-
     return (
         <SafeAreaView className='flex-1 bg-[#d9d9d9]'>
             <View className='flex-row justify-between items-center mb-8'>
@@ -19,6 +16,8 @@ export default function Settings() {
                 <View className='h-5 w-[40px]'></View>
             </View>
             <SettingsLanguageView title='Język' text='Wybór języka'></SettingsLanguageView>
+            <Text style={styles.mainText} className='ml-4 mr-4 mt-6'>Powiadomienia</Text>
+            <SettingsCheckbox text="Wszystkie powiadomienia" iconName='Bell'></SettingsCheckbox>
         </SafeAreaView>
     )
 }
@@ -32,5 +31,9 @@ const styles = StyleSheet.create({
         tintColor: '#111827',
         width: 35,
         height: 35,
+    },
+    mainText: {
+        fontFamily: "Lexend-Bold",
+        fontSize: 22,
     },
 })

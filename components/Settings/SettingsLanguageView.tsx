@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 interface Props {
     title?: string;
     text?: string;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
 }
 
-export const SettingsLanguageView = ({ title, text }: Props) => {
+export const SettingsLanguageView = ({ title, text, value, setValue }: Props) => {
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('pl');
     const [items, setItems] = useState([
         { label: 'Polski', value: 'pl' },
         { label: 'English', value: 'en' },

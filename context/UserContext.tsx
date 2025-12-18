@@ -1,5 +1,6 @@
 import { auth } from '@/services/FirebaseConfig';
 import { fetchUserData } from "@/services/user_services/fetchUserData";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext, useContext, useEffect, useState } from "react";
 type UserContextType = {
@@ -25,6 +26,9 @@ type UserContextType = {
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
+const CACHED_USER_KEY = 'cachedUserData';
+const AUTH_STATE_KEY = 'authState';
+
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [nick, setNick] = useState("");
     const [profilePhoto, setProfilePhoto] = useState("");
@@ -36,35 +40,115 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
 
+    // Zapisz stan autentykacji
+    const saveAuthState = async (isLoggedIn: boolean) => {
+        try {
+            await AsyncStorage.setItem(AUTH_STATE_KEY, JSON.stringify({ isLoggedIn, timestamp: Date.now() }));
+        } catch (error) {
+            console.warn('Failed to save auth state:', error);
+        }
+    };
+
+    // Funkcja do zapisania danych cache
+    const cacheUserData = async (userData: any) => {
+        try {
+            await AsyncStorage.setItem(CACHED_USER_KEY, JSON.stringify(userData));
+        } catch (error) {
+            console.warn('Failed to cache user data:', error);
+        }
+    };
+
+    // Funkcja do załadowania cache
+    const loadCachedUserData = async () => {
+        try {
+            const cached = await AsyncStorage.getItem(CACHED_USER_KEY);
+            return cached ? JSON.parse(cached) : null;
+        } catch (error) {
+            console.warn('Failed to load cached user data:', error);
+            return null;
+        }
+    };
+
+    // Funkcja do ustawienia danych użytkownika
+    const setUserData = (userData: any) => {
+        setNick(userData?.Nick ?? "");
+        setProfilePhoto(userData?.ProfilePhoto ?? "");
+        setCountry(userData?.Country ?? "");
+        setEmail(userData?.Email ?? "");
+        setName(userData?.Name ?? "");
+        setSurname(userData?.Surname ?? "");
+        setXp(userData?.xp ?? 0);
+        setPhoneNumber(userData?.PhoneNumber ?? "");
+        setGender(userData?.Gender ?? "");
+    };
+
+    const clearUserData = () => {
+        setNick("");
+        setProfilePhoto("");
+        setCountry("");
+        setEmail("");
+        setName("");
+        setSurname("");
+        setXp(0);
+        setPhoneNumber("");
+        setGender("");
+    };
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                // użytkownik zalogowany, pobierz dane
-                const result = await fetchUserData();
-                setNick(result?.Nick ?? "");
-                setProfilePhoto(result?.ProfilePhoto ?? "");
-                setCountry(result?.Country ?? "");
-                setEmail(result?.Email ?? "");
-                setName(result?.Name ?? "");
-                setSurname(result?.Surname ?? "");
-                setXp(result?.xp ?? 0);
-                setPhoneNumber(result?.PhoneNumber ?? "");
-                setGender(result?.Gender ?? 0);
-            } else {
-                // użytkownik nie jest zalogowany
-                setNick("");
-                setProfilePhoto("");
-                setCountry("");
-                setEmail("");
-                setName("");
-                setSurname("");
-                setXp(0);
-                setPhoneNumber("");
-                setGender("");
-            }
+        let isMounted = true;
+
+        const initializeAuth = async () => {
+            console.log('[UserContext] Initializing auth...');
+
+            const unsubscribe = onAuthStateChanged(auth, async (user) => {
+                if (!isMounted) return;
+
+                console.log('[UserContext] Auth state changed:', user ? 'logged in' : 'logged out');
+
+                if (user) {
+                    try {
+                        const result = await fetchUserData();
+                        if (result && isMounted) {
+                            console.log('[UserContext] User data fetched successfully');
+                            setUserData(result);
+                            await cacheUserData(result);
+                            await saveAuthState(true);
+                        }
+                    } catch (error) {
+                        console.warn('[UserContext] Error fetching user data:', error);
+                        const cachedData = await loadCachedUserData();
+                        if (cachedData && isMounted) {
+                            console.log('[UserContext] Using cached user data');
+                            setUserData(cachedData);
+                            await saveAuthState(true);
+                        }
+                    }
+                } else {
+                    console.log('[UserContext] User logged out, clearing data');
+                    clearUserData();
+                    await saveAuthState(false);
+                    try {
+                        await AsyncStorage.removeItem(CACHED_USER_KEY);
+                    } catch (error) {
+                        console.warn('Failed to remove cached user data:', error);
+                    }
+                }
+            });
+
+            return unsubscribe;
+        };
+
+        let unsubscribe: (() => void) | null = null;
+        initializeAuth().then(unsub => {
+            unsubscribe = unsub;
+        }).catch(error => {
+            console.error('[UserContext] Error during auth initialization:', error);
         });
 
-        return () => unsubscribe();
+        return () => {
+            isMounted = false;
+            if (unsubscribe) unsubscribe();
+        };
     }, []);
 
 

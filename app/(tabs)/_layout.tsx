@@ -1,4 +1,6 @@
-import { Tabs } from 'expo-router';
+import Loader from '@/components/Loader';
+import { useAuth } from '@/context/AuthContext';
+import { Tabs, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, ImageSourcePropType, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
@@ -29,6 +31,19 @@ const TabIcon: React.FC<TabIconProps> = ({ icon, focused }) => {
 
 
 const _layout = () => {
+
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    if (loading) {
+        return <Loader zIndex={0} />
+    }
+
+    if (!user) {
+        router.replace('/(auth)');
+        return <Loader zIndex={0} />;
+    }
+
     return (
         <Tabs
             screenOptions={{

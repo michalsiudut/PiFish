@@ -1,8 +1,10 @@
 import Loader from '@/components/Loader'
+import { SettingsAccountManagment } from "@/components/Settings/SettingsAccountManagment"
 import { SettingsCheckbox } from '@/components/Settings/SettingsCheckbox'
 import SettingsLanguageView from '@/components/Settings/SettingsLanguageView'
 import { icons as images } from '@/constants/icons'
 import { auth } from '@/services/FirebaseConfig'
+import { useRouter } from 'expo-router'
 import { goBack } from 'expo-router/build/global-state/routing'
 import { signOut } from 'firebase/auth'
 import { useState } from 'react'
@@ -17,6 +19,7 @@ export default function Settings() {
     const [localLanguage, setLocalLanguage] = useState("pl");
     const [isLoading, setIsLoading] = useState(false);
     const [darkMode, setDarkMode] = useState(false);
+    const router = useRouter();
 
     const handleSignOut = async () => {
         setIsLoading(true);
@@ -26,6 +29,9 @@ export default function Settings() {
             console.log("Cant sign out");
         }
         setIsLoading(false);
+    }
+    const handleAccountManagment = () => {
+        router.push("/(pages)/EditProfile");
     }
 
     return (
@@ -46,6 +52,7 @@ export default function Settings() {
             <Text style={styles.mainText} className='ml-4 mr-4 mt-4'>Wygląd</Text>
             <SettingsCheckbox text='Ciemny motyw' iconName='Moon' value={darkMode} setValue={setDarkMode}></SettingsCheckbox>
             <Text style={styles.mainText} className='ml-4 mr-4 mt-4'>Konto</Text>
+            <SettingsAccountManagment onPress={handleAccountManagment} text='Zarządzaj kontem' iconName='Acc'></SettingsAccountManagment>
             <View className='ml-4 mr-4 bg-redd rounded-xl h-12 mt-5 w-auto justify-center mb-5'>
                 <TouchableOpacity onPress={handleSignOut} className='items-center justify-center'>
                     <Text style={{ fontFamily: "Lexend-Bold", color: 'primary' }}>

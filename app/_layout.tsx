@@ -44,11 +44,9 @@ function RootLayoutComponent() {
     }
   }, [isAppReady, isSplashFinished]);
 
-  // Kieruj do odpowiedniego ekranu po załadowaniu - wyzwola się tylko raz
   useEffect(() => {
     if (isAppReady && isSplashFinished && !loading && !navigationAttempted.current) {
       navigationAttempted.current = true;
-      console.log('[RootLayout] Routing user to:', user ? '(tabs)' : '(auth)');
 
       if (user) {
         router.replace('/(tabs)');
@@ -58,9 +56,7 @@ function RootLayoutComponent() {
     }
   }, [isAppReady, isSplashFinished, loading, user]);
 
-  console.log('[RootLayout] Auth state:', { user: user?.email, loading, isAppReady, isSplashFinished });
 
-  // Czekaj na splash
   if (!isAppReady || !isSplashFinished) {
     return (
       <View style={styles.container}>
@@ -77,7 +73,6 @@ function RootLayoutComponent() {
     );
   }
 
-  // Czekaj na załadowanie auth
   if (loading) {
     return (
       <View style={styles.container}>

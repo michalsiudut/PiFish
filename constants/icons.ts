@@ -1,3 +1,4 @@
+import Acc from "../assets/icons/Acc.png"
 import Arrow from "../assets/icons/arrow.png"
 import Bell from "../assets/icons/Bell.png"
 import C from "../assets/icons/C.png"
@@ -72,5 +73,6 @@ export const icons = {
     Down,
     Education,
     Notes,
-    Moon
+    Moon,
+    Acc
 }

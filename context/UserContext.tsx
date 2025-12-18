@@ -8,6 +8,7 @@ type UserContextType = {
     setNick: (v: string) => void;
     profilePhoto: string;
     setProfilePhoto: (v: string) => void;
+    ready: boolean;
     name: string;
     setName: (v: string) => void;
     surname: string;
@@ -32,6 +33,7 @@ const AUTH_STATE_KEY = 'authState';
 export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [nick, setNick] = useState("");
     const [profilePhoto, setProfilePhoto] = useState("");
+    const [ready, setReady] = useState(false);
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
     const [email, setEmail] = useState("");
@@ -40,7 +42,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [gender, setGender] = useState("");
 
-    // Zapisz stan autentykacji
     const saveAuthState = async (isLoggedIn: boolean) => {
         try {
             await AsyncStorage.setItem(AUTH_STATE_KEY, JSON.stringify({ isLoggedIn, timestamp: Date.now() }));
@@ -49,7 +50,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    // Funkcja do zapisania danych cache
     const cacheUserData = async (userData: any) => {
         try {
             await AsyncStorage.setItem(CACHED_USER_KEY, JSON.stringify(userData));
@@ -58,7 +58,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    // Funkcja do załadowania cache
     const loadCachedUserData = async () => {
         try {
             const cached = await AsyncStorage.getItem(CACHED_USER_KEY);
@@ -69,7 +68,6 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
-    // Funkcja do ustawienia danych użytkownika
     const setUserData = (userData: any) => {
         setNick(userData?.Nick ?? "");
         setProfilePhoto(userData?.ProfilePhoto ?? "");
@@ -113,6 +111,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                             setUserData(result);
                             await cacheUserData(result);
                             await saveAuthState(true);
+                            setReady(true);
                         }
                     } catch (error) {
                         console.warn('[UserContext] Error fetching user data:', error);
@@ -121,12 +120,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                             console.log('[UserContext] Using cached user data');
                             setUserData(cachedData);
                             await saveAuthState(true);
+                            setReady(true);
                         }
                     }
                 } else {
                     console.log('[UserContext] User logged out, clearing data');
                     clearUserData();
                     await saveAuthState(false);
+                    setReady(true);
                     try {
                         await AsyncStorage.removeItem(CACHED_USER_KEY);
                     } catch (error) {
@@ -159,6 +160,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                 setNick,
                 profilePhoto,
                 setProfilePhoto,
+                ready,
                 name,
                 setName,
                 surname,

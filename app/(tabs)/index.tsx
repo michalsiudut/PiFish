@@ -1,9 +1,10 @@
 import { SwitchButtons } from "@/components/buttons/SwitchButtons";
 import { TouchableText } from "@/components/buttons/TouchableText";
+import Loader from '@/components/Loader';
 import MathTopicItem from '@/components/MathTopicItem';
 import { ProgressBar } from "@/components/ProgressBar";
 import { useRouter } from "expo-router";
-import React from "react";
+import { useEffect, useState } from "react";
 import { ActivityIndicator, Image, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { icons as images } from '../../constants/icons';
 import { mathTopics } from "../../constants/mathTopics";
@@ -12,7 +13,13 @@ import { useFontStatus } from "../../hooks/useFontStatus";
 
 
 export default function Index() {
-  const { nick, profilePhoto } = useUser();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+
+  })
+
+  const { nick, profilePhoto, ready } = useUser();
   const router = useRouter();
 
   const goToProfile = () => {
@@ -29,6 +36,11 @@ export default function Index() {
     return <ActivityIndicator size="small" />;
   }
   // end font
+
+  // wait until UserContext finished loading data
+  if (!ready) {
+    return <Loader zIndex={0} />;
+  }
 
   const handleTopicPress = (id: number) => {
     // TODO go for topic from id

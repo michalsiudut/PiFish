@@ -5,7 +5,7 @@ import { DEGREES_DATA } from "@/constants/degrees"
 import { icons as images } from "@/constants/icons"
 import validateUserData from "@/hooks/validateUserData"
 import { useRouter } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useUser } from '../../context/UserContext'
@@ -14,7 +14,7 @@ import { caluclateDegree } from '../../hooks/caluclateDegree'
 export default function Profile() {
 
     const router = useRouter();
-    const { name, nick, surname, email, xp, profilePhoto } = useUser();
+    const { name, nick, surname, email, xp, profilePhoto, ready } = useUser();
 
     const isUserDataValid = validateUserData({
         name,
@@ -52,6 +52,9 @@ export default function Profile() {
 
     const handleOptionsPress = () => {
         router.push("/(pages)/Settings")
+    }
+    if (!ready) {
+        return <Loader zIndex={0} />;
     }
 
     return (

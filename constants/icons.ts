@@ -18,6 +18,7 @@ import LanguageIcon from "../assets/icons/LanguageIcon.png"
 import Lock from "../assets/icons/lock.png"
 import LR from "../assets/icons/LR.png"
 import Mail from "../assets/icons/mail.png"
+import Moon from "../assets/icons/Moon.png"
 import Name from "../assets/icons/name.png"
 import Notes from "../assets/icons/notes.png"
 import P from "../assets/icons/P.png"
@@ -70,5 +71,6 @@ export const icons = {
     LanguageIcon,
     Down,
     Education,
-    Notes
+    Notes,
+    Moon
 }

@@ -96,12 +96,9 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
         let isMounted = true;
 
         const initializeAuth = async () => {
-            console.log('[UserContext] Initializing auth...');
 
             const unsubscribe = onAuthStateChanged(auth, async (user) => {
                 if (!isMounted) return;
-
-                console.log('[UserContext] Auth state changed:', user ? 'logged in' : 'logged out');
 
                 if (user) {
                     try {
@@ -114,17 +111,14 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
                             setReady(true);
                         }
                     } catch (error) {
-                        console.warn('[UserContext] Error fetching user data:', error);
                         const cachedData = await loadCachedUserData();
                         if (cachedData && isMounted) {
-                            console.log('[UserContext] Using cached user data');
                             setUserData(cachedData);
                             await saveAuthState(true);
                             setReady(true);
                         }
                     }
                 } else {
-                    console.log('[UserContext] User logged out, clearing data');
                     clearUserData();
                     await saveAuthState(false);
                     setReady(true);

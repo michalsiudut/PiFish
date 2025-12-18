@@ -12,6 +12,7 @@ module.exports = {
         primary: '#111827',
         secondary: '#14b8a6',
         placeholders: '#61897F',
+        redd: '#E57373',
         light: {
           100: '#FFFFFF',
           200: '#F6F8F8',

@@ -8,7 +8,6 @@ import { ValidationView } from '@/components/ValidationView';
 import { ValueInput } from '@/components/ValueInput';
 import { ButtonFunction } from "@/components/buttons/ButtonFunction";
 import { TouchableText } from '@/components/buttons/TouchableText';
-import saveLoginActivity from "@/services/user_services/saveLoginActivity";
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -59,7 +58,7 @@ export default function index() {
         try {
             const user = await signInWithEmailAndPassword(auth, email, password);
             try {
-                await saveLoginActivity(user.user.uid);
+                //await saveLoginActivity(user.user.uid);  temporary disabled for development
                 router.replace('/(tabs)');
             } catch (err) {
                 console.log("Błąd przy zapisie logowania: ", err);

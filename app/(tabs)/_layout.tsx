@@ -1,7 +1,7 @@
 import Loader from '@/components/Loader';
 import { useAuth } from '@/context/AuthContext';
 import { Tabs, useRouter } from 'expo-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, ImageSourcePropType, View } from 'react-native';
 import { icons as images } from '../../constants/icons';
 
@@ -35,12 +35,13 @@ const _layout = () => {
     const { user, loading } = useAuth();
     const router = useRouter();
 
-    if (loading) {
-        return <Loader zIndex={0} />
-    }
+    useEffect(() => {
+        if (!loading && !user) {
+            router.replace('/(auth)');
+        }
+    }, [user, loading]);
 
-    if (!user) {
-        router.replace('/(auth)');
+    if (loading || !user) {
         return <Loader zIndex={0} />;
     }
 

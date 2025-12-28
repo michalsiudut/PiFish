@@ -1,5 +1,5 @@
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Keyboard, StyleSheet, TouchableWithoutFeedback } from 'react-native';
 import { icons } from '../../constants/icons';
 
@@ -68,6 +68,7 @@ export default function SignUpPage() {
             const user = await createUserWithEmailAndPassword(auth, email, password);
             const userUID = user.user.uid;
             if (user) {
+                // for collection users
                 await setDoc(doc(db, "users", userUID), {
                     Email: email,
                     City: '',
@@ -75,7 +76,17 @@ export default function SignUpPage() {
                     Nick: nick,
                     Surname: '',
                     xp: 0,
-                })
+                });
+
+                // for collection users_settings
+                await setDoc(doc(db, "users_settings", userUID), {
+                    all_notifications: false,
+                    dark_mode: false,
+                    language: "Polski",
+                    lessons_reminder: false,
+                    new_exercises: false,
+                });
+
                 setIsLoading(false);
                 router.replace('/(tabs)');
             }

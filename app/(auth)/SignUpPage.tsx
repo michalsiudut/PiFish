@@ -82,7 +82,7 @@ export default function SignUpPage() {
                 await setDoc(doc(db, "users_settings", userUID), {
                     all_notifications: false,
                     dark_mode: false,
-                    language: "Polski",
+                    language: "pl",
                     lessons_reminder: false,
                     new_exercises: false,
                 });

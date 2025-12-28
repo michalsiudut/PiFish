@@ -52,11 +52,7 @@ export default function Index() {
         <Text className="text-3xl text-primary font-bold" style={{ fontFamily: 'Lexend-Bold' }}>Cześć, {nick}!</Text>
         <TouchableOpacity onPress={goToProfile}>
           <View className="justify-center flex-row items-center">
-            <Image source={{ uri: profilePhoto }} className="border-2 rounded-full border-secondary" style={{
-              width: 47,
-              height: 47,
-            }}>
-            </Image>
+            {profilePhoto == "" ? <Image source={images.Default} style={{ width: 47, height: 47 }} className="border-2 rounded-full border-secondary"></Image> : <Image source={{ uri: profilePhoto }} style={{ width: 47, height: 47 }} className="border-2 rounded-full border-secondary"></Image>}
           </View>
         </TouchableOpacity>
       </View >

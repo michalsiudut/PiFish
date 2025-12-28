@@ -1,6 +1,7 @@
 import Loader from '@/components/Loader';
 import { AuthProvider, useAuth } from '@/context/AuthContext';
 import { UserProvider } from '@/context/UserContext';
+import { UserSettingsProvider } from '@/context/UserSettingsContext';
 import { Stack, useRouter } from "expo-router";
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useRef, useState } from 'react';
@@ -85,7 +86,9 @@ function RootLayoutComponent() {
     <View style={styles.container}>
       <Animated.View style={[styles.container, { opacity: fadeAnim }]}>
         <UserProvider>
-          <Stack screenOptions={{ headerShown: false }} />
+          <UserSettingsProvider>
+            <Stack screenOptions={{ headerShown: false }} />
+          </UserSettingsProvider>
         </UserProvider>
       </Animated.View>
     </View>

@@ -12,7 +12,7 @@ SplashScreen.preventAutoHideAsync().catch(() => { });
 
 function RootLayoutComponent() {
   const [isAppReady, setAppReady] = useState(false);
-  const [isSplashFinished, setSplashFinished] = useState(true); //temporaty for better debugging
+  const [isSplashFinished, setSplashFinished] = useState(true); //temporaty true for better debugging
 
   const { user, loading } = useAuth();
   const router = useRouter();

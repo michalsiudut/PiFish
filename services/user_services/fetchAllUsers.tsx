@@ -1,11 +1,17 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../FirebaseConfig";
 
 export async function fetchAllUsers() {
     try {
         const usersCol = collection(db, "users");
-        const snapshot = await getDocs(usersCol);
-        const usersData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+        const q = query(usersCol, orderBy("xp", "desc"));
+
+        const snapshot = await getDocs(q);
+        const usersData = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
 
         return usersData;
     } catch (error) {
